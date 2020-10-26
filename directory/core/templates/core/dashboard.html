@@ -1,0 +1,42 @@
+{% extends "core/base.html" %}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+  <div id="wrapper">
+    <ul>
+      Hi, welcome {{ user.username }}
+      <div class="card d-flex">
+        <h1> Company you follow </h1>
+        {% for company in fcompany %}
+          <a href="{{ company.get_absolute_url }}">{{ company.name }}</a>
+        {% empty %}
+           you dont follow company yet  
+        {% endfor %}
+      </div>
+      <div class="explore card d-flex">
+        <h1> Explore</h1>
+        <a href="{% url "core:companies" %}"> Search Companies </a>
+        <a href="#"> Search Person Or Role</a>
+      </div>
+      <div class="mycompany card d-flex">
+        <h1> My company </h1>
+        <a href="#"> Add a Company </a>
+        <a href="#"> Verify My company </a>
+      </div>
+    </ul> 
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div class="card d-flex">
+        Content Content
+      </div>
+    </div>  
+    <div class="card d-flex">
+      <h1> Trending Company </h1>
+      <ul>
+      {% for company in most_viewed %}
+        <li>
+          <a href="{{ company.get_absolute_url }}">{{ company.name }}</a>
+        </li>
+      {% endfor %}
+      </ul>  
+    </div>
+  </div> 
+{% endblock %}

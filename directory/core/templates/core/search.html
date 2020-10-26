@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% block title %} Search {% endblock %}
+{% block content %}
+  {% if query %}
+    <h3> Companies containing "{{ query }}" </h3>
+    {% for company in results %}
+      <h4><a href=" {{ company.get_absolute_url}}">{{ company.name }}</a></h4>
+    {% empty %} 
+      <p> There are no results for your query </p>
+    {% endfor %}
+    {% for category in cresults %}
+      {{ category.cat_name }}
+    {% empty %} 
+      <p> There are no results for your query </p>
+    {% endfor %}
+    {% else %}   
+    <h1> Search for Companies </h1>
+    <form method="get">
+        {{ form.as_p }}
+        <input type="submit" value="Search">
+    </form>
+  {% endif %}  
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %} Login {% endblock %}
+{% block content %}
+<div class="card d-flex flex-column loginform">
+ <div class="card-header bg-primary">Login</div> 
+ <div class="card-body">  
+ <form action="{% url 'auth:login'%}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <small>Reset your password.</small>
+    <input type="hidden" name="next" value="{{ next }}"/>
+    <button
+    class="btn btn-primary loginbutton">
+    Log In
+    </button>
+  </form>
+ </div>
+ <div class="card-footer">
+  No register yet?
+    <a href="{% url "auth:signup" %}"><button class="btn btn-secondary signupbutton">Sign up</button></a>
+ </div> 
+</div>
+{% endblock %}
