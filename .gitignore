@@ -1,0 +1,27 @@
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+db.sqlite3
+
+# Environments
+env/
+
+# Media and Static directories
+/media/
+!/media/.gitkeep
+
+/static/
+!/static/.gitkeep
+
+# Secrets
+secrets.json
