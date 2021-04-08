@@ -1,6 +1,7 @@
 {% extends "core/base.html" %}
 {% block title %} Company {% endblock %}
 {% block content %}
+<div class="grey lighten-2">
 <div class="company-header">
   <div>
     {% if company.logo.url %}
@@ -19,23 +20,25 @@
     {% endif %}   
   </a>
 </div>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
+<div class="col s12">
+<ul class="tabs" id="myTab" role="tablist">
+  <li class="tab col s3">
     <a class="nav-link show active" id="home-tab" data-toggle="tab" href="#summary" role="tab" aria-controls="home" aria-selected="true">Summary</a>
   </li>
-  <li class="nav-item">
+  <li class="tab col s2">
     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#people" role="tab" aria-controls="profile" aria-selected="false">Team</a>
   </li>
-  <li class="nav-item">
+  <li class="tab col s2">
     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="competitor" aria-selected="false">Documents</a>
   </li>
-  <li class="nav-item">
+  <li class="tab col s3">
     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#competitor" role="tab" aria-controls="competitor" aria-selected="false">Competitors</a>
   </li>
-  <li class="nav-item">
+  <li class="tab col s2">
     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#news" role="tab" aria-controls="contact" aria-selected="false">News</a>
   </li>
 </ul>
+</div>
 <div class="tab-content">
   <div id="summary" class="tab-pane fade show active">
     <div class="row">
@@ -94,7 +97,10 @@
       {{ news.created|date:"M d, Y" }}
       {{ news.source }}
       <a href="{{ news.link }}">{{ news.title }}</a>
+    {% empty %}
+      <p> No records. </p>
     {% endfor %}
+
   </div>
   <div id="competitor" role="tabpanel" class="tab-pane fade">
     <table class="table table-bordered table-company-list">
@@ -117,7 +123,8 @@
       </tbody>
    </table>
   </div>
-</div>  
+</div> 
+</div> 
 {% endblock %}
 {% block domready %}
   $('a.follow').click(function(e){
@@ -137,4 +144,5 @@
       },
     );
   });
+  $('.tabs').tabs();
 {% endblock %}

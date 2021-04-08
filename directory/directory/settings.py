@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'session_security',
     'django_filters',
     'core',
     'auth.apps.AuthConfig',
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'session_security.middleware.SessionSecurityMiddleware',
 ]
 
 ROOT_URLCONF = 'directory.urls'
@@ -84,9 +86,10 @@ WSGI_APPLICATION = 'directory.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'directory',
-        'USER': 'directoryuser',
-        'PASSWORD': 'directorypwd',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
@@ -141,7 +144,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 LOGIN_REDIRECT_URL = 'core:dashboard'
 LOGOUT_REDIRECT_URL = 'core:home'
 
-#Redis configuration
-REDIS_HOST = 'localhost'
-REDIS_PORT = 7001
+# Redis configuration
+REDIS_HOST = 'redis'
+REDIS_PORT = 6379
 REDIS_DB = 0
+
+SESSION_SECURITY_WARN_AFTER = 800
+SESSION_SECURITY_EXPIRE_AFTER = 900
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Email Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False

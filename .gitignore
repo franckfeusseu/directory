@@ -15,9 +15,10 @@ db.sqlite3
 
 # Environments
 env/
+.env
 
 # Media and Static directories
-/media/
+directory/media/*
 !/media/.gitkeep
 
 /static/

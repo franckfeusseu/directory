@@ -9,10 +9,11 @@ from django.http import JsonResponse
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.core.mail import send_mail
 
 from core.common.decorators import ajax_required
-from .models import Company, Person, Role, Category, Contact, Follow, News
-from .forms import CompanySearchForm, CompanyFilterForm
+from .models import Company, Person, Category, Contact, Follow, News
+from .forms import CompanySearchForm
 from .filters import CompanyFilter
 
 r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
@@ -24,7 +25,7 @@ def dashboard(request):
     fcompany = user.companies.all()
     return render(request, 'core/dashboard.html', {'user':user, 'fcompany':fcompany})
 
-def search(request):
+def companysearch(request):
     form = CompanySearchForm()
     query = None
     results = []
@@ -36,6 +37,19 @@ def search(request):
             results = Company.objects.annotate(search=SearchVector('name'),).filter(search=query)
             cresults = Category.objects.annotate(search=SearchVector('cat_name'),).filter(search=query)
     return render(request, 'core/search.html', {'form':form, 'query': query, 'results': results, 'cresults': cresults})        
+
+def directorsearch(request):
+    form = CompanySearchForm()
+    query = None
+    results = []
+    cresults = []
+    if 'query' in request.GET:
+        form = CompanySearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Person.objects.annotate(search=SearchVector('first_name'),).filter(search=query)
+            cresults = Category.objects.annotate(search=SearchVector('cat_name'),).filter(search=query)
+    return render(request, 'core/dsearch.html', {'form':form, 'query': query, 'results': results, 'cresults': cresults})        
 
 def companyDetail(request, slug):
     company = get_object_or_404(Company, slug=slug)
@@ -61,8 +75,12 @@ def home(request):
 
 def CompanyListView(request):
     companies = Company.objects.all()
-    company_filter = CompanyFilter(request.GET, queryset=companies)
-    return render(request, 'company_list.html', {'companies': companies, 'filter':company_filter})  
+    companiesNumber = companies.count()
+    return render(request, 'company_list.html', {'companies': companies, 'companiesNumber': companiesNumber})
+
+class PersonListView(ListView):
+    model = Person
+    template_name = 'core/person_list.html'
 
 class PersonDetailView(DetailView):
     model = Person
@@ -107,3 +125,14 @@ def company_ranking(request):
     most_viewed = list(Company.objects.filter(id__in= company_ranking_ids))
     most_viewed.sort(key=lambda x: company_ranking_ids.index(x.id))
     return render(request, 'company_rlist.html', {'most_viewed': most_viewed})    
+
+def contact(request):
+    
+    if request.method == 'POST':
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+        send_mail(subject, message, email, ['contact@veriskiq.com'])
+
+        
+    return render(request, 'core/contact.html')       

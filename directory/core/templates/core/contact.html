@@ -1,0 +1,32 @@
+{% extends "core/base.html" %}
+{% block title %} Contacts {% endblock %}
+{% block content %}
+ <div class="card row">
+    <form action="{% url 'core:contact'%}" method="post">
+      {% csrf_token %}
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate" name='email'>
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="subject" type="text" class="validate" name='subject'>
+          <label for="subject">Subject</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="message" class="materialize-textarea" name='message'></textarea>
+          <label for="message">Message</label>
+        </div>
+      </div>
+      <div class"row">
+        <button class="col push-m6 btn waves-effect waves-light center-align" type="submit">submit</button>
+      </div>
+    </form>
+    <div class="divider"></div>
+    <h5>Or connect to our Social Medias</h5>
+  </div>
+{% endblock %}

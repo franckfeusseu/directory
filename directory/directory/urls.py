@@ -18,11 +18,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-import core.urls
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls', namespace='core')),
+    path('session_security/', include('session_security.urls')),
     path('auth/', include('django.contrib.auth.urls')),
     path('auth/', include('auth.urls', namespace='auth')),
     path('newsletter/', include('newsletter.urls', namespace='newsletter')),

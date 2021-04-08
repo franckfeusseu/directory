@@ -1,0 +1,9 @@
+{% extends "core/base.html" %}
+{% block title %} Director {% endblock %}
+{% block content %}
+{% for director in object_list %}
+<li>{{director.first_name }}</li>
+{% empty %}
+<li>No directors yet </li>
+{% endfor %}
+{% endblock %}

@@ -1,42 +1,48 @@
 {% extends "core/base.html" %}
 {% block title %} Dashboard {% endblock %}
 {% block content %}
-  <div id="wrapper">
-    <ul>
-      Hi, welcome {{ user.username }}
-      <div class="card d-flex">
-        <h1> Company you follow </h1>
-        {% for company in fcompany %}
-          <a href="{{ company.get_absolute_url }}">{{ company.name }}</a>
-        {% empty %}
-           you dont follow company yet  
-        {% endfor %}
+  <div class="row">
+    <aside class="col s12 m3 13">
+      <div>
+         Hi, welcome {{ user.username }}
+      </div>   
+      <div class="card center">
+        <h1 class="card-action"> Company you follow </h1>
+        <div class=" card-content white-text center">
+          {% for company in fcompany %}
+            <a href="{{ company.get_absolute_url }}">{{ company.name }}</a>
+          {% empty %}
+             you dont follow company yet  
+          {% endfor %}
+        </div>  
       </div>
-      <div class="explore card d-flex">
-        <h1> Explore</h1>
-        <a href="{% url "core:companies" %}"> Search Companies </a>
-        <a href="#"> Search Person Or Role</a>
+      <div class="explore card  card-panel center">
+        <h1 class="card-title"> Explore</h1>
+        <div class="card-body">
+          <a href="{% url "core:companies" %}"> Search Companies </a>
+          <a href="#"> Search Person Or Role</a>
+        </div>  
       </div>
-      <div class="mycompany card d-flex">
-        <h1> My company </h1>
-        <a href="#"> Add a Company </a>
-        <a href="#"> Verify My company </a>
+      <div class="mycompany card card-panel center">
+        <h1 class="card-title"> My company </h1>
+        <div class="card-body">
+          <a href="#"> Add a Company </a>
+          <a href="#"> Verify My company </a>
+        </div>  
       </div>
-    </ul> 
-    <div id="content-wrapper" class="d-flex flex-column">
+    </aside> 
+    <div class="col s12 m6 13">
       <div class="card d-flex">
         Content Content
       </div>
     </div>  
-    <div class="card d-flex">
-      <h1> Trending Company </h1>
-      <ul>
+    <ol class="collection with-header col m3 13">
+      <h1 class="collection-header"> Trending Company </h1>
       {% for company in most_viewed %}
-        <li>
+        <li class="collection-item">
           <a href="{{ company.get_absolute_url }}">{{ company.name }}</a>
         </li>
-      {% endfor %}
-      </ul>  
-    </div>
+      {% endfor %} 
+    </ol>
   </div> 
 {% endblock %}

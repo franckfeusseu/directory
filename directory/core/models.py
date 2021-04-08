@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -13,11 +12,11 @@ class Contact(models.Model):
     street = models.CharField(max_length=200, default='null')
     house_number = models.IntegerField(default=0, blank=True, null=True)
     postal_code = models.CharField(max_length=50, null=True)
-    email = models.EmailField(max_length=254, null=True)
-    facebook_page = models.URLField(max_length=200, null=True)
-    twitter_page = models.URLField(max_length=200, null=True)
-    linkedin_page = models.URLField(max_length=200, null=True)
-    website = models.URLField(max_length=200, null=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    facebook_page = models.URLField(max_length=200, null=True, blank=True)
+    twitter_page = models.URLField(max_length=200, null=True, blank=True)
+    linkedin_page = models.URLField(max_length=200, null=True, blank=True)
+    website = models.URLField(max_length=200, null=True, blank=True)
 
     class Meta:
         verbose_name = 'contact'
@@ -26,12 +25,14 @@ class Contact(models.Model):
     def __str__(self):
         return '{} {}'.format(self.house_number, self.street)
 
+
 class Telephone(models.Model):
     tel_number = models.CharField(max_length=50)
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{}'.format(self.tel_number)
+
 
 class Category(models.Model):
     cat_name = models.CharField(max_length=200)
@@ -45,13 +46,14 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.cat_name)
-        super().save(*args, **kwargs)    
+        super().save(*args, **kwargs) 
 
     def __str__(self):
         return '{}'.format(self.cat_name)
 
     def get_absolute_url(self):
-        return reverse('core:company_category_list', args=[self.slug])   
+        return reverse('core:company_category_list', args=[self.slug])
+
 
 class Type(models.Model):
     type_name = models.CharField(max_length=200)
@@ -65,10 +67,11 @@ class Type(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.type_name)
-        super().save(*args, **kwargs)    
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return '{}'.format(self.type_name)                 
+        return '{}'.format(self.type_name)             
+
 
 class Person(models.Model):
 
@@ -92,19 +95,20 @@ class Person(models.Model):
     class Meta:
         verbose_name = 'person'
         verbose_name_plural = 'persons'
-    
+
     def save(self, *args, **kwargs):
         full_name = self.first_name + "" + self.last_name
         if not self.slug:
             self.slug = slugify(full_name)
-        super().save(*args, **kwargs)    
+        super().save(*args, **kwargs) 
 
     def __str__(self):
         return '{} {}'.format(self.first_name, self.last_name)
 
     def get_absolute_url(self):
-        return reverse('core:person_detail', args=[self.slug])    
+        return reverse('core:person_detail', args=[self.slug])   
     
+
 class Company(models.Model):
 
     ACTIVE = 'AC'
@@ -145,12 +149,12 @@ class Company(models.Model):
     operating_status = models.CharField(max_length=2, choices=COMPANY_STATUS, default=ACTIVE)
     company_type = models.CharField(max_length=200, choices=COMPANY_TYPE, default=PUBLIC_LIMITED_COMPANY)
     founded_date = models.DateField()
-    dissolved_on =models.DateField(blank=True, null=True)
+    dissolved_on = models.DateField(blank=True, null=True)
     employees_numb = models.CharField(max_length=10, choices=COMPANY_SIZE, default=MICRO)
     employes = models.ManyToManyField(Person, through='Role')
     contact = models.OneToOneField(Contact, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category, related_name='companies')
-    logo = models.ImageField( upload_to="logo/", default='media/logo/default_logo.png')
+    logo = models.ImageField( upload_to="logo/", default='logo/default_logo.png')
     followers = models.ManyToManyField(User, through='Follow', related_name='companies')
 
     class Meta:
@@ -160,13 +164,14 @@ class Company(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        super().save(*args, **kwargs)    
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('core:company_detail', args=[self.slug])
 
     def __str__(self):
         return '{}'.format(self.name)
+
 
 class Document(models.Model):
     description = models.TextField()
@@ -176,12 +181,14 @@ class Document(models.Model):
     doc_type = models.ForeignKey(Type, on_delete=models.CASCADE, related_name='type')
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='documents')        
 
+
 class Role(models.Model):
     position = models.CharField(max_length=200)
     start = models.DateField()
     end = models.DateField(blank=True, null=True)
     company = models.ForeignKey(Company, related_name='role', on_delete=models.CASCADE)
     person = models.ForeignKey(Person, related_name='role', on_delete=models.CASCADE)
+
 
 class Follow(models.Model):
     created = models.DateTimeField(auto_now_add=True, db_index=True)
@@ -193,6 +200,7 @@ class Follow(models.Model):
 
     def __str__(self):
         return f'{self.user} follows {self.company}'   
+
 
 class News(models.Model):
     created = models.DateTimeField(auto_now_add=True, db_index=True)

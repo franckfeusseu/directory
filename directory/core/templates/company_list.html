@@ -1,71 +1,108 @@
 {% extends "core/base.html" %}
 {% block title %} Company List {% endblock %}
 {% block content %}
-  <form method="get">
-    {{ filter.form.as_p }}
-    <input type="submit" value="Filter">
-  </form>
-  {% if not filter.qs %}
-        <table class="table table-bordered table-company-list">
+  <div  class="yellow lighten-5" style="padding: 1rem;">
+  <h1 style="font-size: 40px"> Companies </h1>
+      <div class="toggleVue" style="display:flex;justify-content:space-between;">
+          <h1> {{ companiesNumber }} Results</h1>
+          <div class="togglefilter" >
+              <button class="exportButton">Export csv </button>
+              <label style="margin-right:0.5rem"><input type="checkbox" id="checkFoundedDate"/><span>Founded Date</span></label>
+              <label style="margin-right:0.5rem"><input type="checkbox" id="checkCompanyType"/><span>Company Type</span></label>
+              <a class="dropdown-trigger" href="#" data-activates="checkdropdown"><i class="fa fa-ellipsis-v"></i></a>
+          </div>
+      </div>
+    <table id="companytable" class="highlight" >
+           <thead>
+            <tr>
+              <td><label><input type="checkbox" id="checkall" /><span> </span></label></td>
+              <td> Name </td>
+              <td> Industries </td>
+              <td> Location </td>
+              <td> Description </td>
+              <td> Status</td>
+              <td> Founded Date </td>
+              <td> Company Type </td>
+            </tr>
+           </thead>
            <tbody>
            {% for company in companies %}
               <tr>
-                <th><a href="{{ company.get_absolute_url }}">{{ company.name }}</a></th>
-                <td>{{ company.contact.country }}, {{company.contact.city}}</td>
+                <td>
+                    <label>
+                        <input type="checkbox" /><span> </span>
+                    </label>
+                </td>
+                <td>
+                    <img src="{{ company.logo.url }}" width="30" height="30">
+                    <a href="{{ company.get_absolute_url }}">{{ company.name }}</a>
+                </td>
+                <td>
+                    {% for industrie in company.categories.all %}
+                      {{ industrie }},
+                    {% endfor %}
+                </td>
+                <td>
+                    {{ company.contact.country }}, {{company.contact.city}}
+                </td>
+                <td>
+                    {{ company.profile|truncatechars:30 }}
+                </td>
                 {% if company.operating_status == 'DI' %}
-                  <td><span class="badge badge-danger">DISSOLVED</span></td>
+                  <td><span class="badge">DISSOLVED</span></td>
                 {% elif company.operating_status == 'AC'%}
-                  <td><span class="badge badge-success">ACTIVE</span></td>
+                  <td><span class="badge green">ACTIVE</span></td>
                 {% elif company.operating_status == 'LI'%}
-                  <td><span class="badge badge-warning">LIQUIDATION</span></td>
+                  <td><span class="badge">LIQUIDATION</span></td>
                 {% elif company.operating_status == 'DO'%}
-                  <td><span class="badge badge-secondary">DORMANT</span></td>
+                  <td><span class="badge">DORMANT</span></td>
                 {% endif %}
+                <td>
+                    {{ company.founded_date }}
+                </td>
+                <td>
+                    {{ company.company_type }}
+                </td>
                </tr>  
            {% endfor %}
            </tbody>
-        </table>
-  {% else %}
-        <table class="table table-bordered table-company-list">
-           <tbody>
-           {% for company in filter.qs %}
-              <tr>
-                <th><a href="{{ company.get_absolute_url }}">{{ company.name }}</a></th>
-                <td>{{ company.contact.country }}, {{company.contact.city}}</td>
-                {% if company.operating_status == 'DI' %}
-                  <td><span class="badge badge-danger">DISSOLVED</span></td>
-                {% elif company.operating_status == 'AC'%}
-                  <td><span class="badge badge-success">ACTIVE</span></td>
-                {% elif company.operating_status == 'LI'%}
-                  <td><span class="badge badge-warning">LIQUIDATION</span></td>
-                {% elif company.operating_status == 'DO'%}
-                  <td><span class="badge badge-secondary">DORMANT</span></td>
-                {% endif %}
-               </tr>  
-           {% endfor %}
-           </tbody>
-        </table>
-  {% endif %}
+    </table>
+  <ul id='checkdropdown' class="dropdown-content">
+    <li><a href="#!">one</a></li>
+    <li><a href="#!">two</a></li>
+    <li class="divider"></li>
+    <li><a href="#!">three</a></li>
+    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+  </ul>
   <div id="container" data-url={% url 'core:category_chart' %}></div>
+  </div>
 {% endblock %}
 {% block js %}
-  <script src="https://code.highcharts.com/highcharts.src.js"></script>
-  <script>
-    $.ajax({
-      url: $("#container").attr("data-url"),
-      dataType: 'json',
-      success: function(data){
-        Highcharts.chart("container", {
-         chart: { type: 'column'},
-         title: { text: 'category chart'},
-         xAxis: { categories: data.labels },
-         yAxis: { title: { text: 'No of companies '}},
-         series: [{
-           name: 'cat',
-           data: data.data
-         }]
+    $(() => {
+      $('td:nth-child(7)').hide();
+      $('td:nth-child(8)').hide();
+      $('#checkall').on('click', () => {
+        var checkedStatus = $('#checkall').prop("checked");
+        $('#companytable tbody tr').find('td:first :checkbox').each(function () {  
+        $(this).prop('checked', checkedStatus);
         });
-      }
-    });
-  </script>          
+      });
+     $('#checkFoundedDate').on('click', () => {
+       $('td:nth-child(7)').toggle();
+      });
+     $('#checkCompanyType').on('click', () => {
+       $('td:nth-child(8)').toggle();
+      });
+      // when checkbox is check export button appears.
+
+     $('#companytable tbody tr').find('td:first :checkbox').each(function () {
+        if ($(this).prop('checked') === 'true' ) {
+          console.log('hi at least one is checked');
+        } else {
+          $('.exportButton').hide();;
+        }
+        });
+      });   
+
 {% endblock %}

@@ -3,17 +3,33 @@
 {% block title %} Login {% endblock %}
 {% block content %}
 <div class="card d-flex flex-column loginform">
- <div class="card-header bg-primary">Login</div> 
  <div class="card-body">  
- <form action="{% url 'auth:login'%}" method="post">
+ <form action="{% url 'auth:login'%}" method="post" id="login-form">
     {% csrf_token %}
-    {{ form.as_p }}
-    <small>Reset your password.</small>
-    <input type="hidden" name="next" value="{{ next }}"/>
-    <button
-    class="btn btn-primary loginbutton">
-    Log In
-    </button>
+      <div class="row">
+        <div class="input-field">
+          <input id="username" type="text" class="validate" name="username">
+          <label for="username">UserName</label>
+        </div>
+      </div>  
+      <div class="row">
+        <div class="input-field ">
+          <input id="password" type="password" class="validate" name="password">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col md6 s6">
+          <small>Reset your password.</small>
+          <input type="hidden" name="next" value="{{ next }}"/>
+        </div>
+        <div class="col md6 s6">
+          <button
+           class="btn btn-primary loginbutton">
+           Log In
+          </button>
+        </div>
+      </div>    
   </form>
  </div>
  <div class="card-footer">
@@ -21,4 +37,17 @@
     <a href="{% url "auth:signup" %}"><button class="btn btn-secondary signupbutton">Sign up</button></a>
  </div> 
 </div>
+{% endblock %}
+{% block js %}
+$('#login-form').on('submit', function(event){
+    event.preventDefault();
+    $.post(
+      '{% url "auth:login" %}',
+      data: $(this).serialize(),
+      success: function (data) {
+                console.log('Submission was successful.');
+                console.log(data);
+            },
+    );
+  });
 {% endblock %}

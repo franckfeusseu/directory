@@ -10,76 +10,56 @@
     <link rel="icon" 
       type="image/png" 
       href="{% static "core/img/logo/web/logo-web-transparent.png" %}">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'core/css/style.css' %}">
     <title>{% block title %}{% endblock %}</title>
   </head>
-  <body class="container-fluid">
+  <body class="purple darken-4">
     <!--Navbar -->
-    <nav class="mb-1 navbar navbar-expand-lg default-color">
-      <a class="navbar-brand" href="#">
-        <img src="{% static "core/img/logo/web/logo-web.jpg" %}" width="80" height="30" alt="">
-      </a>
-      <form class="form-inline">
-        <div class="md-form my-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        </div>
-      </form>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
-        <ul class="navbar-nav ml-auto nav-flex-icons">
-          <li class="nav-item dropdown">
-              <a class="nav-link" id="navbarDropdownMenuLink-01" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Solutions
-              </a>
-              <div class="dropdown-menu dropdown-menu-right dropdown-default"
-               aria-labelledby="navbarDropdownMenuLink-01">
-                <a class="dropdown-item" href="#">Market Research</a>
-                <a class="dropdown-item" href="#">Data Solutions</a>
-                <a class="dropdown-item" href="#">Risk Management</a>
-                <a class="dropdown-item" href="#">Sales & Marketing</a>
-
-              </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link " id="navbarDropdownMenuLink-02" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Products
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-default"
-             aria-labelledby="navbarDropdownMenuLink-02">
-              <a class="dropdown-item" href="#">Reports</a>
-              <a class="dropdown-item" href="#">Verisk insigths</a>
-              <a class="dropdown-item" href="{% url "core:companies" %}">Company Explorer</a>
-              <a class="dropdown-item" href="#">Company Data API</a>
-
-            </div>
-        </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url "core:pricing" %}">Pricing</a>
-          </li>
+    <nav class="purple darken-4">
+      <div class="container" style="padding-top:1rem;">
+        <div class="nav-wrapper">
+          <a class="brand-logo" href="{% url 'core:home'%}">
+           <img src="{% static "core/img/logo/web/logo-web.jpg" %}" width="200" height="50" alt="">
+          </a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a class="dropdown-trigger" data-target="dropdown1">Solutions</a></li>
+            <li><a class="dropdown-trigger" data-target="dropdown2">Products</a></li>
+            <li><a href="{% url "core:pricing" %}">Pricing</a></li>
           {% if request.user.is_authenticated %}
-            <li class="nav-item dropdown">
-              <a class="nav-link " id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right dropdown-default"
-               aria-labelledby="navbarDropdownMenuLink-333">
-                <a class="dropdown-item" href="#">{{ request.user.username }}</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#"><i class="fas fa-bell"></i> Notifications</a>
-                <a class="dropdown-item" href="{% url "auth:settings" %}"><i class="fas fa-wrench"></i> Settings</a>
-                <a class="dropdown-item" href="{% url "auth:logout" %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
-              </div>
+            <li><a class="dropdown-trigger" data-target="dropdownuser"><i class="material-icons">account_circle</i></a></li>
+              
             </li>
           {% else %}
-            <li class="nav-link"><a href="{% url "auth:login" %}"> LOGIN </a></li>
+            <li class="nav-link"><a class="btn modal-trigger" href="#modal-login"> LOGIN </a></li>
+            <li class="nav-link"><a class="waves-effect waves-light btn modal-trigger" href="#modal1"> SIGNUP </a></li>
           {% endif %} 
        </ul>
     </div>
+    </div>
   </nav>
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="#">Market Research</a></li>
+    <li><a href="#">Data Solutions</a></li>
+    <li><a href="#">Risk Management</a></li>
+    <li><a href="#">Sales & Marketing</a></li>
+  </ul>
+  <ul id="dropdown2" class="dropdown-content">
+    <li><a href="#">Reports</a></li>
+    <li><a href="#">Verisk insigths</a></li>
+    <li><a href="{% url "core:companies" %}">Company Explorer</a></li>
+    <li><a href="#">Company Data API</a></li>
+  </ul>
+  <ul id="dropdownuser" class="dropdown-content">
+    <li><a href="#">{{ request.user.username }}</a></li>
+    <div class="dropdown-divider"></div>
+    <li><a href="#"><i class="material-icons">search</i> Notifications</a></li>
+    <li><a href="{% url "auth:settings" %}"><i class="fas fa-wrench"></i> Settings</a></li>
+    <li><a class="dropdown-item" href="{% url "auth:logout" %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+   </ul>
 <!--/.Navbar --> 
     <div id="content">
       {% block content %}{% endblock %}
@@ -90,7 +70,7 @@
           <img src="{% static "core/img/logo/web/logo-web-transparent.png" %}" width="80" height="30" alt="">
         </div>
         <div class="footer-list-wrapper">
-          <h3 class="footer-header">Products & services</h3>
+          <h3 class="footer-header" style="font-size: 24px">Products & services</h3>
           <ul class="footer-list">
             <li class="footer-list-item">Risk Management</li>
             <li class="footer-list-item">Reports</li>
@@ -99,29 +79,122 @@
           </ul> 
         </div>
         <div class="footer-list-wrapper"> 
-          <h3 class="footer-header">Search</h3>
+          <h3 class="footer-header" style="font-size: 24px">Search</h3>
           <ul class="footer-list">
-            <li class="footer-list-item"> Company Search </li>
-            <li class="footer-list-item"> Director Search </li>
+            <a href="{% url "core:search" %}"><li class="footer-list-item"> Company Search </li></a>
+            <a href="{% url "core:dsearch" %}"><li class="footer-list-item"> Director Search </li></a>
           </ul>
          </div>
         <div class="footer-list-wrapper"> 
-          <h3 class="footer-header">Stay Connected</h3>
+          <h3 class="footer-header" style="font-size: 24px">Stay Connected</h3>
             <ul class="footer-list">
+              <a href="{% url 'core:about' %}"><li class="footer-list-item"> About Us</li></a>
               <li class="footer-list-item"> Newsletter</li>
               <li class="footer-list-item"> Blog </li>
+              <a href="{% url 'core:contact' %}"><li> Contact Us</li></a>
             </ul>
         </div>
       </div>
-      <div class="row">
-        <p class="text-right"> Terms of Service | Privacy Policies | &copy;2020 Name.inc All Rights Reserved </p>
+      <div class="footer-copyright">
+        <p> Terms of Service | Privacy Policies | &copy;2020 Name.inc All Rights Reserved </p>
       </div>
     </footer>
+    <!-- Modal Structure -->
+   <div id="modal1" class="modal">
+    <div class="modal-content">
+      <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input disabled value="I am not editable" id="disabled" type="text" class="validate">
+          <label for="disabled">Disabled</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate">
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          This is an inline input field:
+          <div class="input-field inline">
+            <input id="email_inline" type="email" class="validate">
+            <label for="email_inline">Email</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+    </div>
+    <!-- modal login -->
+    <div id="modal-login" class="modal">
+      <div class="modal-content">
+        <div class="card d-flex flex-column loginform">
+    <div class="card-body">  
+ <form action="{% url 'auth:login'%}" method="post" id="login-form">
+    {% csrf_token %}
+      <div class="row">
+        <div class="input-field">
+          <input id="username" type="text" class="validate" name="username">
+          <label for="username">UserName</label>
+        </div>
+      </div>  
+      <div class="row">
+        <div class="input-field ">
+          <input id="password" type="password" class="validate" name="password">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col md6 s6">
+          <small>Reset your password.</small>
+          <input type="hidden" name="next" value="{{ next }}"/>
+        </div>
+        <div class="col md6 s6">
+          <button
+           class="btn btn-primary loginbutton">
+           Log In
+          </button>
+        </div>
+      </div>    
+  </form>
+ </div>
+ <div class="card-footer">
+  No register yet?
+    <a href="{% url "auth:signup" %}"><button class="btn btn-secondary signupbutton">Sign up</button></a>
+ </div> 
+</div>
+      </div>
+    </div>
+    <!-- end modal login-->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
     <script> 
       var csrftoken = Cookies.get('csrftoken');
@@ -138,11 +211,17 @@
       });
       $(document).ready(function(){
         {% block domready %}
+          $(".dropdown-trigger").dropdown();
+          $('.modal').modal();
         {% endblock %}
       });
+
     </script>
-    {% block js %}
-    {% endblock %}
+    <script>
+      {% block js %}
+      {% endblock %}
+    </script>
+    {% include 'session_security/all.html' %}
   </div>  
   </body>
 </html>
