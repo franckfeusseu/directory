@@ -4,6 +4,9 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
+__pycache__
+media
+.bak
 
 # Translations
 *.mo
@@ -26,3 +29,6 @@ directory/media/*
 
 # Secrets
 secrets.json
+
+# Log files
+*.log
