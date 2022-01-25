@@ -1,4 +1,4 @@
-{% load static %}
+ {% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,56 +11,81 @@
       type="image/png" 
       href="{% static "core/img/logo/web/logo-web-transparent.png" %}">
     <!-- CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'core/css/style.css' %}">
     <title>{% block title %}{% endblock %}</title>
   </head>
-  <body class="purple darken-4">
-    <!--Navbar -->
-    <nav class="purple darken-4">
-      <div class="container" style="padding-top:1rem;">
-        <div class="nav-wrapper">
-          <a class="brand-logo" href="{% url 'core:home'%}">
-           <img src="{% static "core/img/logo/web/logo-web.jpg" %}" width="200" height="50" alt="">
-          </a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul class="right hide-on-med-and-down">
-            <li><a class="dropdown-trigger" data-target="dropdown1">Solutions</a></li>
-            <li><a class="dropdown-trigger" data-target="dropdown2">Products</a></li>
-            <li><a href="{% url "core:pricing" %}">Pricing</a></li>
-          {% if request.user.is_authenticated %}
-            <li><a class="dropdown-trigger" data-target="dropdownuser"><i class="material-icons">account_circle</i></a></li>
-              
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="brand-logo" href="{% url 'core:home'%}">
+          <img src="{% static "core/img/logo/web/logo-web.jpg" %}" width="200" height="50" alt="">
+         </a>
+         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+         </button>
+        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="solutionDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Solutions
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="solutionDropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Market Research</a></li>
+                <li><a class="dropdown-item" href="#">Data Solutions</a></li>
+                <li><a class="dropdown-item" href="#">Risk Management</a></li>
+                <li><a class="dropdown-item" href="#">Sales & Marketing</a></li>
+              </ul>
             </li>
-          {% else %}
-            <li class="nav-link"><a class="btn modal-trigger" href="#modal-login"> LOGIN </a></li>
-            <li class="nav-link"><a class="waves-effect waves-light btn modal-trigger" href="#modal1"> SIGNUP </a></li>
-          {% endif %} 
-       </ul>
-    </div>
-    </div>
-  </nav>
-  <ul id="dropdown1" class="dropdown-content">
-    <li><a href="#">Market Research</a></li>
-    <li><a href="#">Data Solutions</a></li>
-    <li><a href="#">Risk Management</a></li>
-    <li><a href="#">Sales & Marketing</a></li>
-  </ul>
-  <ul id="dropdown2" class="dropdown-content">
-    <li><a href="#">Reports</a></li>
-    <li><a href="#">Verisk insigths</a></li>
-    <li><a href="{% url "core:companies" %}">Company Explorer</a></li>
-    <li><a href="#">Company Data API</a></li>
-  </ul>
-  <ul id="dropdownuser" class="dropdown-content">
-    <li><a href="#">{{ request.user.username }}</a></li>
-    <div class="dropdown-divider"></div>
-    <li><a href="#"><i class="material-icons">search</i> Notifications</a></li>
-    <li><a href="{% url "auth:settings" %}"><i class="fas fa-wrench"></i> Settings</a></li>
-    <li><a class="dropdown-item" href="{% url "auth:logout" %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
-   </ul>
-<!--/.Navbar --> 
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="productDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Products
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="productDropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Reports</a></li>
+                <li><a class="dropdown-item" href="#">Verisk insigths</a></li>
+                <li><a class="dropdown-item" href="{% url "core:companies" %}">Company Explorer</a></li>
+                <li><a class="dropdown-item" href="#">Company Data API</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "core:pricing" %}">Pricing</a>
+            </li>
+           {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <span class="rounded-circle">f</span>
+              <a href="dropdown-toggle nav-link" href="#" id="userDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+                {{ request.user.username }}
+              </a>
+              <ul id="dropdownuser" class="dropdown-menu" aria-labelledby="userDropdownMenuLink">
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <i class="fas fa-bell fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Notifications
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Settings
+                  </a>
+                </li>
+                <div class="dropdown-divider"></div>
+                <li><a class="dropdown-item" href="{% url "auth:logout" %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+              </ul>
+            </li>
+           {% else %}
+            <li class="nav-item"> 
+              <a class="nav-link btn btn-black btn-rounded" href="#" > 
+                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                LogIn
+              </a>
+            </li>
+           {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
     <div id="content">
       {% block content %}{% endblock %}
     </div>
@@ -193,8 +218,8 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
     <script> 
       var csrftoken = Cookies.get('csrftoken');
@@ -218,8 +243,8 @@
 
     </script>
     <script>
-      {% block js %}
-      {% endblock %}
+    {% block js %}
+    {% endblock %}
     </script>
     {% include 'session_security/all.html' %}
   </div>  

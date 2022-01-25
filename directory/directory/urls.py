@@ -24,7 +24,6 @@ urlpatterns = [
     path('session_security/', include('session_security.urls')),
     path('auth/', include('django.contrib.auth.urls')),
     path('auth/', include('auth.urls', namespace='auth')),
-    path('newsletter/', include('newsletter.urls', namespace='newsletter')),
 ]
 
 if settings.DEBUG:
