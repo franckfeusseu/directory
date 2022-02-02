@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
 # Create your models here.
@@ -155,7 +155,7 @@ class Company(models.Model):
     contact = models.OneToOneField(Contact, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category, related_name='companies')
     logo = models.ImageField( upload_to="logo/", default='logo/default_logo.png')
-    followers = models.ManyToManyField(User, through='Follow', related_name='companies')
+    followers = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Follow', related_name='companies')
 
     class Meta:
         verbose_name = 'company'
@@ -192,7 +192,7 @@ class Role(models.Model):
 
 class Follow(models.Model):
     created = models.DateTimeField(auto_now_add=True, db_index=True)
-    user = models.ForeignKey(User, related_name='follow', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='follow', on_delete=models.CASCADE)
     company = models.ForeignKey(Company, related_name='follow', on_delete=models.CASCADE)
 
     class Meta:

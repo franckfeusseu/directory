@@ -1,18 +1,18 @@
 {% extends "core/base.html" %}
 {% block title %} Company List {% endblock %}
 {% block content %}
-  <div  class="yellow lighten-5" style="padding: 1rem;">
-  <h1 style="font-size: 40px"> Companies </h1>
-      <div class="toggleVue" style="display:flex;justify-content:space-between;">
+  <h1 class="mb-3" style="font-size: 40px"> Companies </h1>
+  <div>
+      <div class="toggleVue mb-4" style="display:flex;justify-content:space-between;">
           <h1> {{ companiesNumber }} Results</h1>
           <div class="togglefilter" >
               <button class="exportButton">Export csv </button>
-              <label style="margin-right:0.5rem"><input type="checkbox" id="checkFoundedDate"/><span>Founded Date</span></label>
-              <label style="margin-right:0.5rem"><input type="checkbox" id="checkCompanyType"/><span>Company Type</span></label>
+              <label ><input type="checkbox" id="checkFoundedDate"/><span>Founded Date</span></label>
+              <label ><input type="checkbox" id="checkCompanyType"/><span>Company Type</span></label>
               <a class="dropdown-trigger" href="#" data-activates="checkdropdown"><i class="fa fa-ellipsis-v"></i></a>
           </div>
-      </div>
-    <table id="companytable" class="highlight" >
+  </div>
+    <table id="companytable" class="table" >
            <thead>
             <tr>
               <td><label><input type="checkbox" id="checkall" /><span> </span></label></td>
@@ -39,7 +39,7 @@
                 </td>
                 <td>
                     {% for industrie in company.categories.all %}
-                      {{ industrie }},
+                      {{ industrie }}
                     {% endfor %}
                 </td>
                 <td>
@@ -49,13 +49,13 @@
                     {{ company.profile|truncatechars:30 }}
                 </td>
                 {% if company.operating_status == 'DI' %}
-                  <td><span class="badge">DISSOLVED</span></td>
+                  <td><span>DISSOLVED</span></td>
                 {% elif company.operating_status == 'AC'%}
-                  <td><span class="badge green">ACTIVE</span></td>
+                  <td><span>ACTIVE</span></td>
                 {% elif company.operating_status == 'LI'%}
-                  <td><span class="badge">LIQUIDATION</span></td>
+                  <td><span>LIQUIDATION</span></td>
                 {% elif company.operating_status == 'DO'%}
-                  <td><span class="badge">DORMANT</span></td>
+                  <td><span>DORMANT</span></td>
                 {% endif %}
                 <td>
                     {{ company.founded_date }}
@@ -67,14 +67,6 @@
            {% endfor %}
            </tbody>
     </table>
-  <ul id='checkdropdown' class="dropdown-content">
-    <li><a href="#!">one</a></li>
-    <li><a href="#!">two</a></li>
-    <li class="divider"></li>
-    <li><a href="#!">three</a></li>
-    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-  </ul>
   <div id="container" data-url={% url 'core:category_chart' %}></div>
   </div>
 {% endblock %}

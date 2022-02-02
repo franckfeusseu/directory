@@ -22,8 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls', namespace='core')),
     path('session_security/', include('session_security.urls')),
-    path('auth/', include('django.contrib.auth.urls')),
-    path('auth/', include('auth.urls', namespace='auth')),
+    path('auth/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
