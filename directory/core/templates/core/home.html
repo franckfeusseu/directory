@@ -2,75 +2,20 @@
 {% load static %}
 {% block title %} Test App {% endblock %}
 {% block content %}
-  <header class="header">
+  <div class="header">
     <div class="banner">
       <h1 class="banner-heading">Business information for Corporate Risk, B2B Marketing and Sales</h1>
       <p class="banner-paragraph">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus culpa quisquam et aperiam, distinctio, vero corrupti vitae provident optio quia maxime error fugiat nesciunt! Ipsa voluptatum nisi reiciendis corrupti ullam.
       </p>
-      <form class="form-inline banner-form">
+      <!-- company's search forms landing page-->
+      <form class="form-inline banner-form" action="{% url 'core:search' %}">
+        {% csrf_token %} 
         <div class="form-group mr-2">
             <label class="sr-only" for="inputEmail">Company</label>
-            <input type="email" class="form-control" id="inputCompany" placeholder="Company">
+            <input class="form-control" id="inputsearch" placeholder="Company" type="search" name="searched">
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
      </form>
     </div>
-  </header>
-  <section class="solutions red lighten-5">
-    <div class="solutions-header">
-      <h1> Do more with Us </h1>
-      <span class="solutions-description"> 
-        We Have devolopped a suite of custom data solutions design to support your work.
-      </span>
-    </div>
-    <div class="solutions-card-wrapper">
-      <div class="solution-card market-research-card">
-        <h4 class="solution-card-heading"> Market Research </h4>
-        <p class="solution-card-paragraph">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti illum, culpa distinctio nesciunt nulla, hic quas numquam voluptate voluptas eum repellat ab, iste soluta nihil eius illo sit? Porro, reiciendis!
-        </p>
-        <a class="solution-card-btn btn btn-dark" href="{% url "core:market-research" %}">
-          Find out More...
-        </a>
-      </div>
-      <div class="solution-card">
-        <h4 class="solution-card-heading">
-          Risk Management
-        </h4>
-        <p class="solution-card-paragraph">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus commodi error repellat vero. Suscipit nobis perferendis recusandae magnam nihil cum optio explicabo, corrupti neque sed voluptate quidem consequatur! Amet, id?
-        </p>
-        <a class="solution-card-btn btn btn-dark" href="{% url "core:risk-management" %}">
-          Find out More...
-        </a>
-      </div>
-      <div class="solution-card">
-        <h4 class="solution-card-heading">
-          Reports
-        </h4>
-        <p class="solution-card-paragraph">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia, unde. Culpa eligendi illum sint. Nesciunt fugit, perspiciatis obcaecati minus dolor esse ipsam nulla illo pariatur architecto quas, aliquam doloremque ipsa!
-        </p>
-          <a class="solution-card-btn btn btn-dark" href="{% url "core:reports" %}">
-          Find out More...
-        </a>
-      </div>
-      <div class="solution-card">
-        <h4 class="solution-card-heading">
-          Data Solution
-        </h4>
-        <p class="solution-card-paragraph">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit qui corrupti nam commodi natus ut ipsam a nulla dolor consequatur recusandae error maiores quaerat, ea tempora delectus dignissimos quae minus!
-        </p>
-          <a class="solution-card-btn btn btn-dark" href="{% url "core:data-solution" %}">
-          Find out More...
-        </a>
-      </div>     
-      </div>
-    </div>
-  </section>
-  <section class="insigths">
-    <h1 class="insigths-title"> VeriskIQ Insigths and Analysis </h1>
-  </section>
+  </div>
 {% endblock %}

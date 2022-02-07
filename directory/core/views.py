@@ -25,6 +25,11 @@ def dashboard(request):
     fcompany = user.companies.all()
     return render(request, 'core/dashboard.html', {'user':user, 'fcompany':fcompany})
 
+def search(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+    return render(request, 'core/search.html', {'searched': searched})            
+
 def companysearch(request):
     form = CompanySearchForm()
     query = None

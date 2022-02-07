@@ -27,17 +27,6 @@
         <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
           <ul class="navbar-nav ms-auto align-items-center">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="solutionDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Solutions
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="solutionDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Market Research</a></li>
-                <li><a class="dropdown-item" href="#">Data Solutions</a></li>
-                <li><a class="dropdown-item" href="#">Risk Management</a></li>
-                <li><a class="dropdown-item" href="#">Sales & Marketing</a></li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="productDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Products
               </a>
@@ -47,9 +36,6 @@
                 <li><a class="dropdown-item" href="{% url "core:companies" %}">Company Explorer</a></li>
                 <li><a class="dropdown-item" href="#">Company Data API</a></li>
               </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url "core:pricing" %}">Pricing</a>
             </li>
            {% if request.user.is_authenticated %}
             <li class="nav-item dropdown">
@@ -120,101 +106,10 @@
             </ul>
         </div>
       </div>
-      <div class="footer-copyright">
+      <div class="footer-copyright d-flex justify-content-center">
         <p> Terms of Service | Privacy Policies | &copy;2020 Name.inc All Rights Reserved </p>
       </div>
     </footer>
-    <!-- Modal Structure -->
-   <div id="modal1" class="modal">
-    <div class="modal-content">
-      <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate">
-          <label for="last_name">Last Name</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-          <label for="disabled">Disabled</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="password" type="password" class="validate">
-          <label for="password">Password</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="email" type="email" class="validate">
-          <label for="email">Email</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12">
-          This is an inline input field:
-          <div class="input-field inline">
-            <input id="email_inline" type="email" class="validate">
-            <label for="email_inline">Email</label>
-            <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-          </div>
-        </div>
-      </div>
-    </form>
-    </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-    </div>
-    <!-- modal login -->
-    <div id="modal-login" class="modal">
-      <div class="modal-content">
-        <div class="card d-flex flex-column loginform">
-    <div class="card-body">  
- <form action="{% url 'account_login'%}" method="post" id="login-form">
-    {% csrf_token %}
-      <div class="row">
-        <div class="input-field">
-          <input id="username" type="text" class="validate" name="username">
-          <label for="username">UserName</label>
-        </div>
-      </div>  
-      <div class="row">
-        <div class="input-field ">
-          <input id="password" type="password" class="validate" name="password">
-          <label for="password">Password</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col md6 s6">
-          <small>Reset your password.</small>
-          <input type="hidden" name="next" value="{{ next }}"/>
-        </div>
-        <div class="col md6 s6">
-          <button
-           class="btn btn-primary loginbutton">
-           Log In
-          </button>
-        </div>
-      </div>    
-  </form>
- </div>
- <div class="card-footer">
-  No register yet?
-    <a href="{% url "account_signup" %}"><button class="btn btn-secondary signupbutton">Sign up</button></a>
- </div> 
-</div>
-      </div>
-    </div>
-    <!-- end modal login-->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -246,7 +141,6 @@
     {% block js %}
     {% endblock %}
     </script>
-    {% include 'session_security/all.html' %}
   </div>  
   </body>
 </html>

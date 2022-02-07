@@ -30,3 +30,4 @@ selenium==3.141.0
 sqlparse==0.3.1
 urllib3==1.25.10
 zipp==3.4.0
+gunicorn==20.1.0

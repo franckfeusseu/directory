@@ -7,10 +7,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - db_network
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - ./.env 
   web:
     build: .
     command: "python manage.py runserver 0.0.0.0:8000"
@@ -25,6 +23,8 @@ services:
     networks:
       - db_network
       - redis_network
+    env_file:
+      - ./.env  
   redis:
     image: redis:latest
     networks:

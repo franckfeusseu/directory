@@ -1,8 +1,8 @@
 {% extends "core/base.html" %}
 {% block title %} Search {% endblock %}
 {% block content %}
-  {% if query %}
-    <h3> Companies containing "{{ query }}" </h3>
+  {% if searched %}
+    <h3> Companies containing "{{ searched }}" </h3>
     {% for company in results %}
       <h4><a href=" {{ company.get_absolute_url}}">{{ company.name }}</a></h4>
     {% empty %} 
