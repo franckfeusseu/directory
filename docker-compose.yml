@@ -1,26 +1,17 @@
 version: "3.3"
 
 services:
-  db:
-    image: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - db_network
-    env_file:
-      - ./.env 
   web:
     build: .
-    command: "python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "/home/directory/env/bin/python3 manage.py runserver 0.0.0.0:8000"
     volumes:
       - static_volume:/home/directory/static
+      - directory:/home/directory
     ports:
       - "8000:8000"      
     depends_on:
-      - db
       - redis
     networks:
-      - db_network
       - redis_network
     env_file:
       - ./.env  
@@ -33,12 +24,10 @@ services:
   
 
 networks:
-  db_network:
-    driver: bridge
   redis_network:
     driver: bridge
 
 volumes:
-  postgres_data:
   redis_data:
   static_volume:
+  directory:
