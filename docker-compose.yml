@@ -3,10 +3,10 @@ version: "3.3"
 services:
   web:
     build: .
-    command: bash -c "/home/directory/env/bin/python3 manage.py runserver 0.0.0.0:8000"
+    command: bash -c "cd directory && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - static_volume:/home/directory/static
-      - directory:/home/directory
+      - .:/code
     ports:
       - "8000:8000"      
     depends_on:
