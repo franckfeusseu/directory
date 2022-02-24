@@ -26,35 +26,15 @@ def dashboard(request):
     return render(request, 'core/dashboard.html', {'user':user, 'fcompany':fcompany})
 
 def search(request):
-    if request.method == 'POST':
-        searched = request.POST['searched']
-    return render(request, 'core/search.html', {'searched': searched})            
-
-def companysearch(request):
-    form = CompanySearchForm()
-    query = None
-    results = []
-    cresults = []
-    if 'query' in request.GET:
-        form = CompanySearchForm(request.GET)
-        if form.is_valid():
-            query = form.cleaned_data['query']
-            results = Company.objects.annotate(search=SearchVector('name'),).filter(search=query)
-            cresults = Category.objects.annotate(search=SearchVector('cat_name'),).filter(search=query)
-    return render(request, 'core/search.html', {'form':form, 'query': query, 'results': results, 'cresults': cresults})        
-
-def directorsearch(request):
-    form = CompanySearchForm()
-    query = None
-    results = []
-    cresults = []
-    if 'query' in request.GET:
-        form = CompanySearchForm(request.GET)
-        if form.is_valid():
-            query = form.cleaned_data['query']
-            results = Person.objects.annotate(search=SearchVector('first_name'),).filter(search=query)
-            cresults = Category.objects.annotate(search=SearchVector('cat_name'),).filter(search=query)
-    return render(request, 'core/dsearch.html', {'form':form, 'query': query, 'results': results, 'cresults': cresults})        
+    searched = request.GET.get("query")
+    company_results = Company.objects.annotate(search=SearchVector('name'), ).filter(search=searched)
+    company_results_number = company_results.count()
+    director_results = Person.objects.annotate(search=SearchVector('first_name'),).filter(search=searched)
+    director_results_number = director_results.count()
+    return render(request, 'core/search.html', {'searched': searched, 'company_results':company_results,
+                                                'company_results_number':company_results_number,
+                                                'director_results': director_results,
+                                                'director_results_number': director_results_number})
 
 def companyDetail(request, slug):
     company = get_object_or_404(Company, slug=slug)

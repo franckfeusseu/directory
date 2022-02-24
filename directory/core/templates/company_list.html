@@ -1,18 +1,19 @@
 {% extends "core/base.html" %}
 {% block title %} Company List {% endblock %}
 {% block content %}
-  <h1 class="mb-3" style="font-size: 40px"> Companies </h1>
-  <div>
+  <div class="content m-4">
+    <h1 class="mb-3" style="font-size: 40px"> Companies </h1>
+    <div>
       <div class="toggleVue mb-4" style="display:flex;justify-content:space-between;">
           <h1> {{ companiesNumber }} Results</h1>
           <div class="togglefilter" >
               <button class="exportButton">Export csv </button>
-              <label ><input type="checkbox" id="checkFoundedDate"/><span>Founded Date</span></label>
-              <label ><input type="checkbox" id="checkCompanyType"/><span>Company Type</span></label>
-              <a class="dropdown-trigger" href="#" data-activates="checkdropdown"><i class="fa fa-ellipsis-v"></i></a>
+              <label class="p-2"><input type="checkbox" id="checkFoundedDate"/><span class="p-1">Founded Date</span></label>
+              <label class="p-2"><input type="checkbox" id="checkCompanyType"/><span class="p-1">Company Type</span></label>
+              <a class="dropdown-trigger p-2" href="#" data-activates="checkdropdown"><i class="fa fa-ellipsis-v"></i></a>
           </div>
-  </div>
-    <table id="companytable" class="table" >
+    </div>
+    <table id="companytable" class="table table-hover" >
            <thead>
             <tr>
               <td><label><input type="checkbox" id="checkall" /><span> </span></label></td>
@@ -49,13 +50,13 @@
                     {{ company.profile|truncatechars:30 }}
                 </td>
                 {% if company.operating_status == 'DI' %}
-                  <td><span>DISSOLVED</span></td>
+                  <td><span class="badge bg-danger">DISSOLVED</span></td>
                 {% elif company.operating_status == 'AC'%}
-                  <td><span>ACTIVE</span></td>
+                  <td><span class="badge bg-success">ACTIVE</span></td>
                 {% elif company.operating_status == 'LI'%}
-                  <td><span>LIQUIDATION</span></td>
+                  <td><span class="badge bg-warning">LIQUIDATION</span></td>
                 {% elif company.operating_status == 'DO'%}
-                  <td><span>DORMANT</span></td>
+                  <td><span class="badge bg-info">DORMANT</span></td>
                 {% endif %}
                 <td>
                     {{ company.founded_date }}
@@ -63,11 +64,12 @@
                 <td>
                     {{ company.company_type }}
                 </td>
-               </tr>  
+               </tr>
            {% endfor %}
            </tbody>
     </table>
-  <div id="container" data-url={% url 'core:category_chart' %}></div>
+    <div id="container" data-url={% url 'core:category_chart' %}></div>
+    </div>
   </div>
 {% endblock %}
 {% block js %}

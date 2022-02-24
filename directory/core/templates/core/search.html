@@ -1,23 +1,35 @@
 {% extends "core/base.html" %}
 {% block title %} Search {% endblock %}
 {% block content %}
-  {% if searched %}
-    <h3> Companies containing "{{ searched }}" </h3>
-    {% for company in results %}
+ Result for {{ searched }}:
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" aria-current="page" id="nav-companies-tab" data-bs-toggle="tab" data-bs-target="#nav-companies-content">
+        Companies {{ company_results_number }}
+      </a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="nav-directors-tab" data-bs-toggle="tab" data-bs-target="#nav-directors-content">
+          Directors {{ director_results_number }}
+      </a>
+    </li>
+  </ul>
+ <div class="tab-content" id="ul-tabContent">
+   <div class="company_results tab-pane fade show active" id="nav-companies-content" role="tabpanel">
+   {% for company in company_results %}
       <h4><a href=" {{ company.get_absolute_url}}">{{ company.name }}</a></h4>
-    {% empty %} 
+   {% empty %}
+      <p> There are no results for your query </p>
+   {% endfor %}
+  </div>
+  <div class="directory_results tab-pane fade" id="nav-directors-content" role="tabpanel">
+   {% for director in director_results %}
+      <h4><a href=" {{ director.get_absolute_url}}">{{ director.name }}</a></h4>
+    {% empty %}
       <p> There are no results for your query </p>
     {% endfor %}
-    {% for category in cresults %}
-      {{ category.cat_name }}
-    {% empty %} 
-      <p> There are no results for your query </p>
-    {% endfor %}
-    {% else %}   
-    <h1> Search for Companies </h1>
-    <form method="get">
-        {{ form.as_p }}
-        <input type="submit" value="Search">
-    </form>
-  {% endif %}  
+  </div>
+ </div>
 {% endblock %}
+
+
