@@ -30,8 +30,6 @@ ALLOWED_HOSTS = ['localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'session_security',
-    'django_filters',
     'core',
     'storages',
 
@@ -57,7 +55,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'session_security.middleware.SessionSecurityMiddleware',
 ]
 
 ROOT_URLCONF = 'directory.urls'
@@ -89,10 +86,10 @@ WSGI_APPLICATION = 'directory.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'directory',
-        'USER': 'directory',
-        'PASSWORD': 'directory',
-        'HOST': 'pweb.cocqv7kcsden.eu-west-2.rds.amazonaws.com',
+        'NAME': os.environ.get("POSTGRES_DB"),
+        'USER': os.environ.get("POSTGRES_USER"),
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+        'HOST': os.environ.get("POSTGRES_HOST"),
         'PORT': 5432,
     }
 }
@@ -148,10 +145,6 @@ LOGOUT_REDIRECT_URL = 'core:home'
 REDIS_HOST = 'redis'
 REDIS_PORT = 6379
 REDIS_DB = 0
-
-SESSION_SECURITY_WARN_AFTER = 800
-SESSION_SECURITY_EXPIRE_AFTER = 900
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Email Configuration
 EMAIL_HOST = 'localhost'

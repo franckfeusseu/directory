@@ -1,54 +1,54 @@
 {% extends "core/base.html" %}
-{% block title %} Company {% endblock %}
+{% block title %} {{ company }} {% endblock %}
 {% block content %}
-<div class="grey lighten-2">
-<div class="company-header">
-  <div>
-    {% if company.logo.url %}
-      <img src="{{ company.logo.url }}" width="100" height="100">
-    {% endif %}  
-    <h1 class="pull-left"> {{ company.name }}</h1>
-  </div>  
-  <span class="count">
-    {{ total_views }} view{{ total_views|pluralize }}
-  </span>
-  <a href="#" data-id="{{ company.id }}" data-action="{% if request.user in company.followers.all %}un{% endif %}follow" class="follow button">
-    {% if request.user in company.followers.all %}
-      Unfollow
-    {% else %}
-      Follow 
-    {% endif %}   
-  </a>
-</div>
-<div class="col s12">
-<ul class="tabs" id="myTab" role="tablist">
-  <li class="tab col s3">
-    <a class="nav-link show active" id="home-tab" data-toggle="tab" href="#summary" role="tab" aria-controls="home" aria-selected="true">Summary</a>
-  </li>
-  <li class="tab col s2">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#people" role="tab" aria-controls="profile" aria-selected="false">Team</a>
-  </li>
-  <li class="tab col s2">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="competitor" aria-selected="false">Documents</a>
-  </li>
-  <li class="tab col s3">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#competitor" role="tab" aria-controls="competitor" aria-selected="false">Competitors</a>
-  </li>
-  <li class="tab col s2">
-    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#news" role="tab" aria-controls="contact" aria-selected="false">News</a>
-  </li>
-</ul>
-</div>
-<div class="tab-content">
-  <div id="summary" class="tab-pane fade show active">
-    <div class="row">
+<div class="content m-4">
+  <div class="grey lighten-2">
+    <div class="company-header">
+      <div>
+        {% if company.logo.url %}
+        <img src="{{ company.logo.url }}" width="100" height="100">
+        {% endif %}
+        <h1 class="pull-left"> {{ company.name }}</h1>
+      </div>
+      <span class="count">
+       {{ total_views }} view{{ total_views|pluralize }}
+      </span>
+      <a href="#" data-id="{{ company.id }}" data-action="{% if request.user in company.followers.all %}un{% endif %}follow" class="follow button">
+        {% if request.user in company.followers.all %}
+          Unfollow
+        {% else %}
+          Follow
+        {% endif %}
+      </a>
+    </div>
+    <div class="d-flex align-items-start">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <button class="nav-link active" id="v-pills-summary-tabs" data-bs-toggle="pill" data-bs-target="#v-pills-summary" type="button" role="tab" aria-selected="v-pills-summary" aria-selected="true">
+          Summary
+        </button>
+        <button class="nav-link" id="v-pills-team-tabs" data-bs-toggle="pill" data-bs-target="#v-pills-team" type="button" role="tab" aria-selected="v-pills-team" aria-selected="false">
+          Team
+        </button>
+        <button class="nav-link" id="v-pills-documents-tabs" data-bs-toggle="pill" data-bs-target="#v-pills-documents" type="button" role="tab" aria-selected="v-pills-documents" aria-selected="false">
+          Documents
+        </button>
+        <button class="nav-link" id="v-pills-competitors-tabs" data-bs-toggle="pill" data-bs-target="#v-pills-competitors" type="button" role="tab" aria-selected="v-pills-competitors" aria-selected="false">
+          Competitors
+        </button>
+        <button class="nav-link" id="v-pills-news-tabs" data-bs-toggle="pill" data-bs-target="#v-pills-news" type="button" role="tab" aria-selected="v-pills-news" aria-selected="false">
+          News
+        </button>
+     </div>
+      <div class="tab-content" id="v-pills-tabContent">
+       <div id="v-pills-summary" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-summary-tabs">
+        <div class="row">
       <div class="col-md-6">
         {{ company.profile }}</br>
-        <a href="{{company.contact.website}}">{{ company.contact.website }}</a>  
+        <a href="{{company.contact.website}}">{{ company.contact.website }}</a>
         <h4> Categorie </h4>
         {% for category in company.categories.all %}
           <span class="badge badge-success"><a href="{{ category.get_absolute_url }}">{{ category }}</a></span>
-        {% endfor %} 
+        {% endfor %}
        </div>
       <div class="col-md-6">
         <h3> Contact </h3>
@@ -58,15 +58,15 @@
         {{ company.contact.postal_code }}
       </div>
     </div>
-  </div>
-  <div id="people" class="tab-pane fade">
+      </div>
+       <div id="v-pills-team" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-team-tabs">
     {% for employe in employes %}
       <li><a href="{{ employe.get_absolute_url }}">{{ employe.first_name }}</a></li>
-    {% empty %} 
+    {% empty %}
       <p> No records. </p>
-    {% endfor %}   
+    {% endfor %}
   </div>
-  <div id="documents" role="tabpanel" class="tab-pane fade" >
+       <div id="v-pills-documents" role="tabpanel" class="tab-pane fade"  role="tabpanel" aria-labelledby="v-pills-documents-tabs">
     {% if documents %}
       <table class="table table-company-list">
         <thead>
@@ -85,14 +85,14 @@
               <td>{{ document.name }}</td>
               <td><a href="{{ document.document.url }}">view pdf </a></td>
             </tr>
-          {% endfor %}  
-        </tbody>  
-      </table>  
+          {% endfor %}
+        </tbody>
+      </table>
     {% else %}
       <p> No records. </p>
-    {% endif %}    
+    {% endif %}
   </div>
-  <div id="news" role="tabpanel" class="tab-pane fade" >
+       <div id="v-pills-news" role="tabpanel" class="tab-pane fade" aria-labelledby="v-pills-news-tabs">
     {% for news in news %}
       {{ news.created|date:"M d, Y" }}
       {{ news.source }}
@@ -102,8 +102,8 @@
     {% endfor %}
 
   </div>
-  <div id="competitor" role="tabpanel" class="tab-pane fade">
-    <table class="table table-bordered table-company-list">
+       <div id="v-pills-competitors" role="tabpanel" class="tab-pane fade" aria-labelledby="v-pills-competitors-tabs">
+        <table class="table table-bordered table-company-list">
       <tbody>
       {% for company in similar_companies %}
          <tr>
@@ -118,13 +118,17 @@
            {% elif company.operating_status == 'DO'%}
              <td><span class="badge badge-secondary">DORMANT</span></td>
            {% endif %}
-          </tr>  
+          </tr>
       {% endfor %}
       </tbody>
    </table>
-  </div>
-</div> 
-</div> 
+       </div>
+      </div>
+    </div>
+
+
+</div>
+</div>
 {% endblock %}
 {% block domready %}
   $('a.follow').click(function(e){

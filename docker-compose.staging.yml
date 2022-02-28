@@ -1,51 +1,49 @@
 version: "3.3"
-   
+
 services:
   db:
     image: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - db_network      
+      - db_network
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   web:
-    build: .
-    command: "gunicorn --bind 0.0.0.0:8000 directory.wsgi"
+    build:
+      context: .
+      dockerfile: dockerfile/django/staging/Dockerfile
     volumes:
+      - static_volume:/home/directory/static
       - .:/code
-      - static:/static  
-    expose:
-      - 8000
+    ports:
+      - "8000:8000"
     depends_on:
-      - db
       - redis
+      - db
     networks:
+      - redis_network
       - db_network
-      - redis_network      
+    env_file:
+      - ./.env
   redis:
     image: redis:latest
     networks:
       - redis_network
     volumes:
-      - redis_data:/data      
-  nginx:
-    build: ./nginx
-    ports:
-      - 1337:80
-    depends_on:
-      - web
+      - redis_data:/data
+
 
 networks:
-  db_network:
-    driver: bridge
   redis_network:
+    driver: bridge
+  db_network:
     driver: bridge
 
 volumes:
   postgres_data:
-  redis_data:        
-  static:
-  db_data:
+  redis_data:
+  static_volume:
+  directory:

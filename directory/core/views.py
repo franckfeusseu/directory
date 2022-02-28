@@ -13,8 +13,6 @@ from django.core.mail import send_mail
 
 from core.common.decorators import ajax_required
 from .models import Company, Person, Category, Contact, Follow, News
-from .forms import CompanySearchForm
-from .filters import CompanyFilter
 
 r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
 

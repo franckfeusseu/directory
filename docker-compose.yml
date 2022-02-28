@@ -1,8 +1,20 @@
 version: "3.3"
 
 services:
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - db_network
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: dockerfile/django/dev/Dockerfile
     command: bash -c "cd directory && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - static_volume:/home/directory/static
@@ -11,8 +23,10 @@ services:
       - "8000:8000"      
     depends_on:
       - redis
+      - db
     networks:
       - redis_network
+      - db_network
     env_file:
       - ./.env  
   redis:
@@ -26,8 +40,11 @@ services:
 networks:
   redis_network:
     driver: bridge
+  db_network:
+    driver: bridge
 
 volumes:
+  postgres_data:
   redis_data:
   static_volume:
   directory:
