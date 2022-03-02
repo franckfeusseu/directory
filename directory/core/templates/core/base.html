@@ -39,9 +39,8 @@
             </li>
            {% if request.user.is_authenticated %}
             <li class="nav-item dropdown">
-              <span class="rounded-circle">f</span>
               <a href="dropdown-toggle nav-link" href="#" id="userDropdownMenuLink" role="button" data-bs-toggle="dropdown">
-                {{ request.user.username }}
+                <span class="rounded-circle"> {{ request.user.username|first }}</span>
               </a>
               <ul id="dropdownuser" class="dropdown-menu" aria-labelledby="userDropdownMenuLink">
                 <li>
@@ -75,10 +74,11 @@
     <div id="content">
       {% block content %}{% endblock %}
     </div>
-    <footer>
+
+    <footer class="page-footer">
       <div class="footer-main-part">
         <div class="">
-          <img src="{% static "core/img/logo/web/logo-web-transparent.png" %}" width="80" height="30" alt="">
+          <img src="{% static "core/img/logo/web/logo-web-transparent.png" %}" width="80" height="30" alt="verisk-logo">
         </div>
         <div class="footer-list-wrapper">
           <h3 class="footer-header" style="font-size: 24px">Products & services</h3>
@@ -87,26 +87,30 @@
             <li class="footer-list-item">Reports</li>
             <li class="footer-list-item">Data Solutions</li>
             <li class="footer-list-item">Market Research</li>
+            <li>
+              <a href="{% url "core:search" %}"><li class="footer-list-item"> Company Search </li></a>
+            </li>
           </ul> 
         </div>
         <div class="footer-list-wrapper"> 
-          <h3 class="footer-header" style="font-size: 24px">Search</h3>
+          <h3 class="footer-header" style="font-size: 24px">Learn</h3>
           <ul class="footer-list">
-            <a href="{% url "core:search" %}"><li class="footer-list-item"> Company Search </li></a>
+            <li class="footer-list-item">Ressources</li>
+            <li class="footer-list-item">Blog</li>
           </ul>
          </div>
         <div class="footer-list-wrapper"> 
-          <h3 class="footer-header" style="font-size: 24px">Stay Connected</h3>
+          <h3 class="footer-header" style="font-size: 24px">Company</h3>
             <ul class="footer-list">
               <a href="{% url 'core:about' %}"><li class="footer-list-item"> About Us</li></a>
-              <li class="footer-list-item"> Newsletter</li>
-              <li class="footer-list-item"> Blog </li>
+              <li class="footer-list-item"> Terms of Service</li>
+              <li class="footer-list-item"> Privacy Policy</li>
               <a href="{% url 'core:contact' %}"><li> Contact Us</li></a>
             </ul>
         </div>
       </div>
       <div class="footer-copyright d-flex justify-content-center">
-        <p> Terms of Service | Privacy Policies | &copy;2020 Name.inc All Rights Reserved </p>
+        <p>  &copy;2022 VersikIQ.inc All Rights Reserved </p>
       </div>
     </footer>
     <!-- Optional JavaScript -->

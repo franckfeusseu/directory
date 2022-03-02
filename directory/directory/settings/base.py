@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['localhost']
 INSTALLED_APPS = [
     'core',
     'storages',
+    'django_countries', # add Countries
 
     'django.contrib.postgres',
     'django.contrib.admin',

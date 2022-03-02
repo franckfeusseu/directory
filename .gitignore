@@ -44,6 +44,7 @@ env/
 # Media and Static directories
 /media/
 !/media/.gitkeep
+*media/*
 
 /static/
 !/static/.gitkeep

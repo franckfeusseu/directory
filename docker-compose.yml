@@ -15,6 +15,7 @@ services:
     build:
       context: .
       dockerfile: dockerfile/django/dev/Dockerfile
+    container_name: web01
     command: bash -c "cd directory && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - static_volume:/home/directory/static

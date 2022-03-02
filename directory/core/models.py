@@ -3,10 +3,13 @@ from django.utils.text import slugify
 from django.urls import reverse
 from django.conf import settings
 
+# import django country model
+from django_countries.fields import CountryField
+
 
 # Create your models here.
 class Contact(models.Model):
-    country = models.CharField(max_length=50)
+    country = CountryField()
     city = models.CharField(max_length=50)
     region = models.CharField(max_length=50)
     street = models.CharField(max_length=200, default='null')

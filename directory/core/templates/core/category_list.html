@@ -1,11 +1,11 @@
 {% extends "core/base.html" %}
-{% block title %} Company List {% endblock %}
+{% block title %} {{ cat }} {% endblock %}
 {% block content %}
   <div class="content m-4">
     <h1 class="mb-3" style="font-size: 40px"> Companies </h1>
     <div>
       <div class="toggleVue mb-4" style="display:flex;justify-content:space-between;">
-          <h1> {{ companiesNumber }} Results</h1>
+          <h1> {{ companiesNumber }} Companies in {{ cat }}</h1>
           <div class="togglefilter" >
               <button class="exportButton">Export csv </button>
               <label class="p-2"><input type="checkbox" id="checkFoundedDate"/><span class="p-1">Founded Date</span></label>
@@ -17,7 +17,7 @@
            <thead>
             <tr>
               <td><label><input type="checkbox" id="checkall" /><span> </span></label></td>
-              <td> Name </td>
+              <td> Name <span>&#8593;</span></td>
               <td> Industries </td>
               <td> Location </td>
               <td> Description </td>
@@ -78,7 +78,7 @@
       $('td:nth-child(8)').hide();
       $('#checkall').on('click', () => {
         var checkedStatus = $('#checkall').prop("checked");
-        $('#companytable tbody tr').find('td:first :checkbox').each(function () {  
+        $('#companytable tbody tr').find('td:first :checkbox').each(function () {
         $(this).prop('checked', checkedStatus);
         });
       });
@@ -89,14 +89,6 @@
        $('td:nth-child(8)').toggle();
       });
       // when checkbox is check export button appears.
-
-     $('#companytable tbody tr').find('td:first :checkbox').each(function () {
-        if ($(this).prop('checked') === 'true' ) {
-          console.log('hi at least one is checked');
-        } else {
-          $('.exportButton').hide();;
-        }
-        });
-      });   
+      });
 
 {% endblock %}

@@ -51,7 +51,8 @@ def companyCategoryList(request, slug):
     if slug:
         cat = get_object_or_404(Category, slug=slug)
         companies = companies.filter(categories__in=[cat])[:120]
-    return render(request, 'company_list.html', {'companies': companies,'cat':cat})
+        companiesNumber = companies.count()
+    return render(request, 'core/category_list.html', {'companies': companies,'cat':cat, 'companiesNumber': companiesNumber})
 
 def home(request):
     return render(request, 'core/home.html')
