@@ -28,6 +28,9 @@ migrate:
 shell-web:
 	docker exec -it web01 /bin/bash
 
+shell-db:
+	docker exec -it db01 /bin/sh
+
 collectstatic:
 	docker exec -w /code/directory web01 python manage.py collectstatic
 

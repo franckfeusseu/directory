@@ -3,6 +3,7 @@ version: "3.3"
 services:
   db:
     image: postgres
+    container_name: db01
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
