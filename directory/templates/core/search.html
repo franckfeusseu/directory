@@ -1,7 +1,8 @@
 {% extends "core/base.html" %}
 {% block title %} Search {% endblock %}
 {% block content %}
- Result for {{ searched }}:
+<div class="search-content p-4">
+  Result for {{ searched }}:
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item" role="presentation">
       <a class="nav-link active" aria-current="page" id="nav-companies-tab" data-bs-toggle="tab" data-bs-target="#nav-companies-content">
@@ -17,7 +18,25 @@
  <div class="tab-content" id="ul-tabContent">
    <div class="company_results tab-pane fade show active" id="nav-companies-content" role="tabpanel">
    {% for company in company_results %}
-      <h4><a href=" {{ company.get_absolute_url}}">{{ company.name }}</a></h4>
+       <div class="card sr-result m-2">
+           <div class="card-header">
+             <h4><a href=" {{ company.get_absolute_url}}">{{ company.name }}</a></h4>
+               {{ company.contact.country }}, {{company.contact.city}}
+           </div>
+           <div class="card-body">
+              <span>Status</span>
+               {% if company.operating_status == 'DI' %}
+                  <td><span class="badge bg-danger">DISSOLVED</span></td>
+               {% elif company.operating_status == 'AC'%}
+                  <td><span class="badge bg-success">ACTIVE</span></td>
+               {% elif company.operating_status == 'LI'%}
+                  <td><span class="badge bg-warning">LIQUIDATION</span></td>
+               {% elif company.operating_status == 'DO'%}
+                  <td><span class="badge bg-info">DORMANT</span></td>
+               {% endif %}
+           </div>
+       </div>
+
    {% empty %}
       <p> There are no results for your query </p>
    {% endfor %}
@@ -30,6 +49,7 @@
     {% endfor %}
   </div>
  </div>
+</div>
 {% endblock %}
 
 

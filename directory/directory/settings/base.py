@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from pathlib import Path
 from telnetlib import AUTHENTICATION
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -30,10 +31,6 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS")
 # Application definition
 
 INSTALLED_APPS = [
-    'core',
-    'storages',
-    'django_countries', # add Countries
-
     'django.contrib.postgres',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
+    'core',
+    'storages',
+    'django_countries', # django_countries
     'allauth',
     'allauth.account',
     'allauth.socialaccount',

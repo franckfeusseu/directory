@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %} Test App {% endblock %}
+{% block content %}
+  <div class="header">
+    <div class="banner">
+      <div class="banner-content">
+          <h1 class="banner-heading">Business information for Corporate Risk, B2B Marketing and Sales</h1>
+          <!-- company's search forms landing page-->
+           <form class="form-inline d-flex inline "   action="{% url 'core:search' %}">
+            {% csrf_token %}
+            <div class="form-group mr-2">
+              <label class="sr-only">Company</label>
+              <input class="form-control" id="inputsearch" placeholder="Search a Company or Director" type="search" name="query">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -2,13 +2,15 @@
 {% block title %} {{ company }} {% endblock %}
 {% block content %}
 <div class="content m-4">
-  <div class="grey lighten-2">
+  <div class="">
     <div class="company-header">
       <div>
         {% if company.logo.url %}
-        <img src="{{ company.logo.url }}" width="100" height="100">
+        <div class="Cdetail-logo">
+          <img src="{{ company.logo.url }}" width="100" height="100">
+        </div>
         {% endif %}
-        <h1 class="pull-left"> {{ company.name }}</h1>
+        <h1 class="Cdetail-company-name"> {{ company.name }}</h1>
       </div>
       <span class="count">
        {{ total_views }} view{{ total_views|pluralize }}
@@ -21,7 +23,7 @@
         {% endif %}
       </a>
     </div>
-    <div class="d-flex align-items-start">
+    <div class="d-flex align-items-start mt-3">
       <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <button class="nav-link active" id="v-pills-summary-tabs" data-bs-toggle="pill" data-bs-target="#v-pills-summary" type="button" role="tab" aria-selected="v-pills-summary" aria-selected="true">
           Summary
@@ -39,23 +41,30 @@
           News
         </button>
      </div>
-      <div class="tab-content" id="v-pills-tabContent">
+      <div class="tab-content m-4 " id="v-pills-tabContent">
        <div id="v-pills-summary" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-summary-tabs">
         <div class="row">
       <div class="col-md-6">
         {{ company.profile }}</br>
-        <a href="{{company.contact.website}}">{{ company.contact.website }}</a>
-        <h4> Categorie </h4>
+        <div class="Cdetail-website mt-2">
+          <h4 class="Cdetail-website-title"> Website</h4>
+          <a href="{{company.contact.website}}">{{ company.contact.website }}</a>
+        </div>
+        <div class="Cdetail-categorie mt-2">
+           <h4 class="Cdetail-categorie-title"> Categorie </h4>
         {% for category in company.categories.all %}
-          <span class="badge badge-success"><a href="{{ category.get_absolute_url }}">{{ category }}</a></span>
+          <span class="badge bg-light"><a href="{{ category.get_absolute_url }}">{{ category }}</a></span>
         {% endfor %}
+        </div>
        </div>
       <div class="col-md-6">
-        <h3> Contact </h3>
-        {{ company.contact.country }}</br>
-        {{ company.contact.city }}</br>
-        {{ company.contact.house_number }}, {{ company.contact.street }}</br>
-        {{ company.contact.postal_code }}
+        <div class="Cdetail-contact">
+          <h3 class="Cdetail-contact-title"> Contact </h3>
+          {{ company.contact.country }}</br>
+          {{ company.contact.city }}</br>
+          {{ company.contact.house_number }}, {{ company.contact.street }}</br>
+          {{ company.contact.postal_code }}
+        </div>
       </div>
     </div>
       </div>

@@ -12,9 +12,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   web:
-    build:
-      context: .
-      dockerfile: dockerfile/django/staging/Dockerfile
+    image: franckfesse/directory
     volumes:
       - static_volume:/home/directory/static
       - .:/code

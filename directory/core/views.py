@@ -60,7 +60,7 @@ def home(request):
 def CompanyListView(request):
     companies = Company.objects.all()
     companiesNumber = companies.count()
-    return render(request, 'company_list.html', {'companies': companies, 'companiesNumber': companiesNumber})
+    return render(request, 'core/company_list.html', {'companies': companies, 'companiesNumber': companiesNumber})
 
 class PersonListView(ListView):
     model = Person
@@ -108,7 +108,7 @@ def company_ranking(request):
     company_ranking_ids = [int(id) for id in company_ranking]
     most_viewed = list(Company.objects.filter(id__in= company_ranking_ids))
     most_viewed.sort(key=lambda x: company_ranking_ids.index(x.id))
-    return render(request, 'company_rlist.html', {'most_viewed': most_viewed})    
+    return render(request, 'core/company_rlist.html', {'most_viewed': most_viewed})
 
 def contact(request):
     
