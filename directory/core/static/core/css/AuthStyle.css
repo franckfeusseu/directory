@@ -14,10 +14,22 @@ nav {
 
 .content-wrapper {
  min-height: 80vh;
+ max-width: 500px;
+ margin: 50px auto;
 }
-.login-wrapper {
-  padding-top: 3rem;
+
+.content-wrapper card {
+  max-width: 400px;
+  min-height: 450px;
+  margin: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 0.8rem;
 }
+
 
 footer {
  min-height: 10vh;

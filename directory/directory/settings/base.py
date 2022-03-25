@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from pathlib import Path
-from telnetlib import AUTHENTICATION
+
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -79,6 +82,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'directory.wsgi.application'
+
+# Admins
+ADMINS = os.environ.get("ADMINS")
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -169,3 +175,18 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+# sentry init
+sentry_sdk.init(
+    dsn="https://b73692440f44461ba88a12a60ee82db8@o1163952.ingest.sentry.io/6252615",
+    integrations=[DjangoIntegration()],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)

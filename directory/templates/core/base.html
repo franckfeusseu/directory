@@ -31,10 +31,18 @@
                 Products
               </a>
               <ul class="dropdown-menu" aria-labelledby="productDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Reports</a></li>
                 <li><a class="dropdown-item" href="#">Verisk insigths</a></li>
-                <li><a class="dropdown-item" href="{% url "core:companies" %}">Company Explorer</a></li>
-                <li><a class="dropdown-item" href="#">Company Data API</a></li>
+                <li><a class="dropdown-item" href="{% url "core:companies" %}">Verisk Explorer</a></li>
+                <li><a class="dropdown-item" href="#">Verisk Data API</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="solutionsDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Solutions
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="solutionsDropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Verisk Reports</a></li>
+                <li><a class="dropdown-item" href="#">Verisk Market Research</a></li>
               </ul>
             </li>
            {% if request.user.is_authenticated %}
@@ -76,36 +84,33 @@
     </div>
 
     <footer class="page-footer">
-      <div class="footer-main-part">
-        <div class="">
+      <div class="footer-main-part row">
+        <div class="footer-logo col">
           <img src="{% static "core/img/logo/web/logo-web-transparent.png" %}" width="80" height="30" alt="verisk-logo">
         </div>
-        <div class="footer-list-wrapper">
-          <h3 class="footer-header" style="font-size: 24px">Products & services</h3>
+        <div class="footer-list-wrapper col">
+          <h3 class="footer-header" >Products & services</h3>
           <ul class="footer-list">
             <li class="footer-list-item">Risk Management</li>
             <li class="footer-list-item">Reports</li>
             <li class="footer-list-item">Data Solutions</li>
             <li class="footer-list-item">Market Research</li>
-            <li>
-              <a href="{% url "core:search" %}"><li class="footer-list-item"> Company Search </li></a>
-            </li>
           </ul> 
         </div>
-        <div class="footer-list-wrapper"> 
-          <h3 class="footer-header" style="font-size: 24px">Learn</h3>
+        <div class="footer-list-wrapper col">
+          <h3 class="footer-header">Learn</h3>
           <ul class="footer-list">
             <li class="footer-list-item">Ressources</li>
             <li class="footer-list-item">Blog</li>
           </ul>
          </div>
-        <div class="footer-list-wrapper"> 
-          <h3 class="footer-header" style="font-size: 24px">Company</h3>
+        <div class="footer-list-wrapper col">
+          <h3 class="footer-header" >Company</h3>
             <ul class="footer-list">
               <a href="{% url 'core:about' %}"><li class="footer-list-item"> About Us</li></a>
               <li class="footer-list-item"> Terms of Service</li>
               <li class="footer-list-item"> Privacy Policy</li>
-              <a href="{% url 'core:contact' %}"><li> Contact Us</li></a>
+              <li class="footer-list-item"> <a href="{% url 'core:contact' %}"> Contact Us</a></li>
             </ul>
         </div>
       </div>

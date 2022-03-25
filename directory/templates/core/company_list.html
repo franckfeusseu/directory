@@ -2,18 +2,89 @@
 {% block title %} Company List {% endblock %}
 {% block content %}
   <div class="content m-4">
-    <h1 class="mb-3" style="font-size: 40px"> Companies </h1>
-    <div>
-      <div class="toggleVue mb-4" style="display:flex;justify-content:space-between;">
+      <div class="companiesListHeader">
+         <h1 class="mb-3" style="font-size: 40px"> Companies </h1>
           <h1> {{ companiesNumber }} Results</h1>
-          <div class="togglefilter" >
+      </div>
+      <div id="ClistWrapper">
+        <!-- filter Sidebar -->
+        <div id="ClistWrapper-filterbar" class="deactivate">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="card">
+                <div class="card-header" role="tab" id="keyData">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseKeyData" aria-expanded="true" aria-controls="collapse">
+                      <i class="fas fa-database"></i>
+                         key Data
+                       <i class="fas fa-chevron-down pull-right"></i>
+                    </a>
+
+              </div>
+                  <div id="collapseKeyData" class="collapse show" role="tabpanel" aria-labelledby="keyData">
+                      <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
+                aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+                    </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <i class="fas fa-calendar"></i>
+                  Dates
+                  <i class="fas fa-chevron-down pull-right"></i>
+              </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <i class="fas fa-globe"></i>
+                  Location
+                  <i class="fas fa-chevron-down"></i>
+              </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <i class="fas fa-industry"></i>
+                  Industry
+                  <i class="fas fa-chevron-down"></i>
+              </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <i class="fas fa-coins"></i>
+                  Financial
+                  <i class="fas fa-chevron-down"></i>
+              </div>
+              </div>
+            </div>
+        </div>
+        <!-- /#filter Sidebar -->
+
+        <!-- page Content -->
+        <div id="ClistWrapper-content">
+           <div class="container-fluid">
+               <div class="toggleVue mb-4">
+          <div class="wrapper-content-top">
+            <div class="togglefilter d-flex justify-content-end">
+             <span id="filterButton" data-toggle="modal" data-target="#myModal" ><i class="fas fa-filter"></i></span>
+            </div>
+           <div class="d-flex justify-content-between">
               <button class="exportButton">Export csv </button>
-              <label class="p-2"><input type="checkbox" id="checkFoundedDate"/><span class="p-1">Founded Date</span></label>
-              <label class="p-2"><input type="checkbox" id="checkCompanyType"/><span class="p-1">Company Type</span></label>
-              <a class="dropdown-trigger p-2" href="#" data-activates="checkdropdown"><i class="fa fa-ellipsis-v"></i></a>
+              <div id="addColumnUI">
+                <label class="p-2"><input type="checkbox" id="checkFoundedDate"/><span class="p-1">Founded Date</span></label>
+                <label class="p-2"><input type="checkbox" id="checkCompanyType"/><span class="p-1">Company Type</span></label>
+                <label class="p-2"><input type="checkbox" id="checkContact"/><span class="p-1">Contact</span></label>
+                <label class="p-2"><input type="checkbox" id="checkImmatriculation"/><span class="p-1">Immatriculation</span></label>
+                <label class="p-2"><input type="checkbox" id="checkEmployeNumb"/><span class="p-1">Number of Employe</span></label>
+                <label class="p-2"><input type="checkbox" id="checkDirectors"/><span class="p-1">Directors</span></label>
+              </div>
+           </div>
           </div>
     </div>
-    <table id="companytable" class="table table-hover" >
+               <table id="companytable" class="table table-hover" >
            <thead>
             <tr>
               <td><label><input type="checkbox" id="checkall" /><span> </span></label></td>
@@ -28,6 +99,14 @@
               <td> Status</td>
               <td> Founded Date </td>
               <td> Company Type </td>
+              <td> Contact </td>
+              <td> Imm.No.</td>
+              <td> Empl.No</td>
+              <td> Directors </td>
+              <td>
+                  <span id="tableAddButton"><i class="fas fa-plus-circle"></i></i></span>
+              </td>
+
             </tr>
            </thead>
            <tbody>
@@ -35,7 +114,7 @@
               <tr>
                 <td>
                     <label>
-                        <input type="checkbox" /><span> </span>
+                        <input type="checkbox" />
                     </label>
                 </td>
                 <td>
@@ -68,18 +147,39 @@
                 <td>
                     {{ company.company_type }}
                 </td>
+                <td>
+                   {{ company.contact.website }}
+                </td>
+                <td>
+                   {{ company.immatriculation_numb }}
+                </td>
+                <td>
+                    {{ company.employees_numb }}
+                </td>
+                <td>
+                    {{ company.employes }}
+                </td>
                </tr>
            {% endfor %}
            </tbody>
     </table>
-    <div id="container" data-url={% url 'core:category_chart' %}></div>
-    </div>
+           </div>
+        </div>
+        <!-- /#page Content -->
+      </div>
+
   </div>
 {% endblock %}
 {% block js %}
     $(() => {
       $('td:nth-child(7)').hide();
       $('td:nth-child(8)').hide();
+      $('td:nth-child(9)').hide();
+      $('td:nth-child(10)').hide();
+      $('td:nth-child(11)').hide();
+      $('td:nth-child(12)').hide();
+      $('#filteringUI').hide();
+      $('#addColumnUI').hide();
       $('#checkall').on('click', () => {
         var checkedStatus = $('#checkall').prop("checked");
         $('#companytable tbody tr').find('td:first :checkbox').each(function () {  
@@ -92,8 +192,27 @@
      $('#checkCompanyType').on('click', () => {
        $('td:nth-child(8)').toggle();
       });
+     $('#checkContact').on('click', () => {
+       $('td:nth-child(9)').toggle();
+      });
+     $('#checkImmatriculation').on('click', () => {
+       $('td:nth-child(10)').toggle();
+      });
+     $('#checkEmployeNumb').on('click', () => {
+       $('td:nth-child(11)').toggle();
+      });
+     $('#checkDirectors').on('click', () => {
+       $('td:nth-child(12)').toggle();
+      });
       // when checkbox is check export button appears.
-
+      // when filter button click toggle filter part
+     $('#filterButton').on('click', () => {
+       $('#filteringUI').toggle();
+     });
+     // Add chosen table column
+     $('#tableAddButton').on('click', () => {
+       $('#addColumnUI').toggle();
+     });
      $('#companytable tbody tr').find('td:first :checkbox').each(function () {
         if ($(this).prop('checked') === 'true' ) {
           console.log('hi at least one is checked');
@@ -101,6 +220,9 @@
           $('.exportButton').hide();;
         }
         });
-      });   
-
+      });
+    $('#filterButton').on('click', function () {
+      console.log('clickeq');
+      $('#ClistWrapper-filterbar').toggleClass('deactivate');
+    });
 {% endblock %}

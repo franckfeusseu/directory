@@ -1,0 +1,27 @@
+html, body {
+ margin: 0;
+ padding: 0;
+}
+
+body {
+ min-height: 100vh;
+}
+
+nav {
+ min-height: 10vh;
+ border-bottom: 0.25px solid #DCDCDC;
+}
+
+.content-wrapper {
+ min-height: 80vh;
+}
+
+.login-wrapper {
+  padding-top: 3rem;
+  margin-top: 3rem;
+}
+
+footer {
+ min-height: 10vh;
+ border-top: 0.25px solid #DCDCDC;
+}

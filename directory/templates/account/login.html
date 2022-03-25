@@ -6,8 +6,8 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-<div class="content-wrapper">
-  <div class="login-wrapper card w-50 m-auto">
+<div class="content-wrapper row">
+  <div class="login-wrapper card col-3 mx-auto">
   <h1 class="login-title d-flex justify-content-center">{% trans "Sign In" %}</h1>
   <div class="login-content">
     {% get_providers as socialaccount_providers %}

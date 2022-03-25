@@ -13,6 +13,7 @@ class Contact(models.Model):
     city = models.CharField(max_length=50)
     region = models.CharField(max_length=50)
     street = models.CharField(max_length=200, default='null')
+    house_name = models.CharField(max_length=200, default='null')
     house_number = models.IntegerField(default=0, blank=True, null=True)
     postal_code = models.CharField(max_length=50, null=True)
     email = models.EmailField(max_length=254, null=True, blank=True)
@@ -216,6 +217,11 @@ class News(models.Model):
     class Meta:
         verbose_name = 'news'
         verbose_name_plural = 'news'
-    
 
-
+# financial to save financial info per year.
+class Financial(models.Model):
+    company_linked = models.OneToOneField(Company, on_delete=models.CASCADE)
+    assets = models.IntegerField()
+    debts = models.IntegerField()
+    liabilities = models.IntegerField()
+    year = models.IntegerField()

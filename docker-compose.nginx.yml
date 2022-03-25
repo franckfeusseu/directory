@@ -1,0 +1,64 @@
+version: "3.3"
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: ng01
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - .:/code
+    depends_on:
+      - web
+    networks:
+      - db_network
+  db:
+    image: postgres
+    container_name: db01
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - db_network
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    build:
+      context: .
+      dockerfile: dockerfile/django/dev/Dockerfile
+    container_name: web01
+    command: bash -c "cd directory && python manage.py collectstatic --no-input && gunicorn directory.wsgi -b 0.0.0.0:8000"
+    volumes:
+      - static_volume:/home/directory/static
+      - .:/code
+    depends_on:
+      - redis
+      - db
+    expose:
+      - "8000"
+    networks:
+      - redis_network
+      - db_network
+    env_file:
+      - ./.env
+  redis:
+    image: redis:latest
+    networks:
+      - redis_network
+    volumes:
+      - redis_data:/data
+
+
+networks:
+  redis_network:
+    driver: bridge
+  db_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  static_volume:
+  directory:

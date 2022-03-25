@@ -48,11 +48,14 @@ table {
 }
 html {
   box-sizing: border-box;
+  max-width: 100vw;
 }
 
 body {
   margin: 0;
   padding: 0;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 section{
@@ -60,6 +63,10 @@ section{
 }
 ul {
   list-style: none;
+}
+
+a:link {
+   text-decoration: none;
 }
 
 .d-flex {
@@ -93,7 +100,7 @@ ul {
 /*   end content  */
 /*      navbar    */
 nav{
-  margin: 1rem;
+
 }
 
 .circle-singleline {
@@ -151,10 +158,8 @@ nav{
 }
 
 .footer-header{
-	font-size: 2.5rem;
-	font-weight: 300;
-	color: goldenrod;
-	margin: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 900;
 }
 
 .footer-list{
@@ -164,8 +169,25 @@ nav{
 
 .footer-list-item{
 	margin-bottom: 0.75rem;
+	color: grey;
 }
+
+.footer-list-item a {
+    color: grey;
+}
+
+.footer-list-item a:hover {
+    color: black;
+}
+
+.footer-list-item:hover {
+    color: black;
+}
+
 .footer-copyright{
+   border-top: 0.25px solid #DCDCDC;
+   min-height: 5vh;
+   padding: 1rem;
 }
 /*      end footer       */
 .table-company-list{
@@ -246,13 +268,21 @@ nav{
   font-weight: 900;
 }
 /*   end Company Detail    */
-/* ------------------------------------- Auth Part start -------------------------------------------------------------*/
-/* Login page */
-.login-wrapper {
-  border-radius: 15px;
+/*  company list id="Clist"*/
+#tableAddButton{
+  cursor: pointer;
 }
-.login-title {
-  color: blue;
+#ClistWrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
 }
-/* End Login page */
-/* ------------------------------------- End Auth part  --------------------------------------------------------------*/
+
+#ClistWrapper-filterbar{
+  min-width: 250px;
+  max-width: 250px;
+}
+
+
+
+/*  end company list */

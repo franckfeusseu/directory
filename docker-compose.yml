@@ -15,17 +15,17 @@ services:
   web:
     build:
       context: .
-      dockerfile: dockerfile/django/dev/Dockerfile
+      dockerfile: dockerfile/django/test/Dockerfile
     container_name: web01
-    command: bash -c "cd directory && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "cd directory && python3 manage.py runserver 0.0.0.0:8000"
     volumes:
       - static_volume:/home/directory/static
       - .:/code
-    ports:
-      - "8000:8000"      
     depends_on:
       - redis
       - db
+    ports:
+      - "8000:8000"
     networks:
       - redis_network
       - db_network

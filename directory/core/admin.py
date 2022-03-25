@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Contact, Telephone, Company, Category, Person, Role, Document, Type, Follow, News
+from core.models import Contact, Telephone, Company, Category, Person, Role, Document, Type, Follow, News, Financial
 # Register your models here.
 admin.site.register(Contact)
 admin.site.register(Telephone)
@@ -12,3 +12,4 @@ admin.site.register(Type)
 admin.site.register(Document)
 admin.site.register(Follow)
 admin.site.register(News)
+admin.site.register(Financial)

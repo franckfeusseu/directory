@@ -48,19 +48,25 @@ table {
 }
 html {
   box-sizing: border-box;
+  max-width: 100vw;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: #F0FFFF;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 section{
   margin: 20px;	
 }
 ul {
-  list-style: none;  	
+  list-style: none;
+}
+
+a:link {
+   text-decoration: none;
 }
 
 .d-flex {
@@ -77,10 +83,9 @@ ul {
 
 .header {
   margin-left : 0rem;
-  min-width: 1024px;
   width: 100%;
   height: 100vh;
-  background-image: url("/static/core/img/1.jpg");
+  background: url("/static/core/img/1.jpg");
   background-size: cover;
 }
 
@@ -88,25 +93,43 @@ ul {
 	display: flex;
 	justify-content: space-between;
 }
+/*    Content     */
+#content {
+  height: 100%;
+}
+/*   end content  */
 /*      navbar    */
 nav{
-  margin: 1rem;
+
 }
+
+.circle-singleline {
+  margin: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    background: #808080;
+    color: #fff;
+}
+
 /*     banner     */
 .banner {
-  color: white;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   padding: 10px;
-  width: 45%;	
+  width: 50%;
+  margin-top: auto;
 }
 
 .banner-heading {
-	font-family: Cambria;
-	font-size: 60px;
-	font-weight: 400;
-	margin: 10px;
+  font-family: Cambria;
+  font-size: 60px;
+  font-weight: 400;
+  margin: 10px;
 }
 
 .banner-paragraph {
@@ -118,62 +141,14 @@ nav{
 .banner-form {
 	margin: 10px;
 }
+
+.banner-content {
+  padding-top: 25%;
+}
 /*     end banner     */
-/*    solutions       */
-.solutions-header {
-	text-align: center;
-}
 
-.solutions-header h1 {
-	font-size: medium;
-	font-weight: 600;
-	margin: 5px;
-}
-
-.solutions-description {
-	margin-bottom: 10px;
-}
-.solutions-card-wrapper{
-	margin-top: 20px;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 20px 20px;
-	height: 90vh;
-}
-
-.solution-card {
-	padding: 10px;
-	box-shadow: 5px 5px 10px #777;
-	border-radius: 5px;
-	border-style: ridge;
-    
-}
-
-.solution-card h4{
-	font-size: large;
-	font-weight: 900;
-	margin: 10px;
-}
-
-.solution-card-paragraph{
-	margin: 10px;
-}
-
-.market-research-card{
-	background-image: url("/static/core/img/2.jpg");
-	background-size: cover;
-}
-/*  end solutions      */
-/*     insigths        */
-.insigths-title {
-	font-size: large;
-	font-weight: 900;
-}
-/*    end insigths     */
 /*        footer       */
 .footer {
-	margin-left: 8rem;
-	background-color: #436be6;
 }
 
 .footer-main-part{
@@ -183,10 +158,8 @@ nav{
 }
 
 .footer-header{
-	font-size: 2.5rem;
-	font-weight: 300;
-	color: goldenrod;
-	margin: 1rem 0 3rem 0;
+    margin-bottom: 1rem;
+    font-weight: 900;
 }
 
 .footer-list{
@@ -195,11 +168,26 @@ nav{
 }
 
 .footer-list-item{
-	margin-bottom: 2rem;
+	margin-bottom: 0.75rem;
+	color: grey;
 }
+
+.footer-list-item a {
+    color: grey;
+}
+
+.footer-list-item a:hover {
+    color: black;
+}
+
+.footer-list-item:hover {
+    color: black;
+}
+
 .footer-copyright{
-	display: flex;
-	justify-content: flex-end;
+   border-top: 0.25px solid #DCDCDC;
+   min-height: 5vh;
+   padding: 1rem;
 }
 /*      end footer       */
 .table-company-list{
@@ -208,57 +196,7 @@ nav{
 	border-radius: 5px;
 	border-style: ridge;
 }
-/*   Pricing   */
-section.pricing {
-	background: #007bff;
-	background: linear-gradient(to right, #0062E6, #33AEFF);
-  }
-  
-  .pricing .card {
-	border: none;
-	border-radius: 1rem;
-	transition: all 0.2s;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-  }
-  
-  .pricing hr {
-	margin: 1.5rem 0;
-  }
-  
-  .pricing .card-title {
-	margin: 0.5rem 0;
-	font-size: 0.9rem;
-	letter-spacing: .1rem;
-	font-weight: bold;
-  }
-  
-  .pricing .card-price {
-	font-size: 3rem;
-	margin: 0;
-  }
-  
-  .pricing .card-price .period {
-	font-size: 0.8rem;
-  }
-  
-  .pricing ul li {
-	margin-bottom: 1rem;
-  }
-  
-  .pricing .text-muted {
-	opacity: 0.7;
-  }
-  
-  .pricing .btn {
-	font-size: 80%;
-	border-radius: 5rem;
-	letter-spacing: .1rem;
-	font-weight: bold;
-	padding: 1rem;
-	opacity: 0.7;
-	transition: all 0.2s;
-  }
-  
+
   /* Hover Effects on Card */
   
   @media (min-width: 992px) {
@@ -282,6 +220,8 @@ section.pricing {
 	  display: flex;
 	  justify-content: flex-start;
 	}
+
+	
    .card {
 		position: relative;
 		display: flex;
@@ -301,4 +241,30 @@ section.pricing {
 
     aside > div {
 		margin-top: 30px;
-	}	  
+	}
+
+/*  Company Detail  class="Cdetail-*" */
+.Cdetail-logo {
+  border: solid 1px grey;
+  border-radius: 15px;
+}
+.Cdetail-company-name {
+  color: black;
+  font-size: large;
+  font-weight: 900;
+  margin-top: 2rem;
+}
+.Cdetail-website-title {
+  color: grey;
+  font-weight: 900;
+}
+
+.Cdetail-categorie-title {
+  color: grey;
+  font-weight: 900;
+}
+.Cdetail-contact-title {
+  color: grey;
+  font-weight: 900;
+}
+/*   end Company Detail    */

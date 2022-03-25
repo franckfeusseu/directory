@@ -3,6 +3,9 @@ from django.views.generic import TemplateView
 
 from . import views
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 app_name = 'core'
 urlpatterns = [
     path('', views.home, name='home'),
@@ -23,4 +26,5 @@ urlpatterns = [
     path('risk-management', TemplateView.as_view(template_name="core/risk-management.html"), name='risk-management'),
     path('data-solution', TemplateView.as_view(template_name="core/data-solution.html"), name='data-solution'),
     path('contact', views.contact, name='contact'),
+    path('sentry-debug/', trigger_error),
 ]
